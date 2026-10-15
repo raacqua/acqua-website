@@ -44,8 +44,9 @@ h2{font-size:clamp(34px,5vw,60px);max-width:16ch}
 h3{font-size:26px}
 p{margin:0 0 1em;max-width:64ch}
 .lede{font-size:19px;color:var(--muted)}
-section{padding-top:110px;padding-bottom:110px;position:relative}
-.head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:end;margin-bottom:56px}
+section{padding-top:72px;padding-bottom:72px;position:relative}
+@media (max-width:860px){section{padding-top:56px;padding-bottom:56px}}
+.head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:end;margin-bottom:40px}
 .head p{margin:0}
 @media (max-width:860px){.head{grid-template-columns:1fr;gap:18px}}
 
@@ -236,6 +237,9 @@ select:focus,input:focus{border-color:var(--cyan);outline:none}
 footer{border-top:1px solid var(--line);padding-top:36px;padding-bottom:48px;font-size:14px;color:var(--muted)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
 footer p{margin:0}
+.legal-links{display:flex;flex-wrap:wrap;gap:8px 20px;width:100%}
+.legal-links a{color:var(--muted);text-decoration:none;font-weight:600}
+.legal-links a:hover{color:var(--cyan)}
 /* ===== v4 additions ===== */
 .acqua-logo{display:block;background:var(--logo-dark) center/contain no-repeat;aspect-ratio:720/183}
 .logo .acqua-logo{height:34px}
@@ -314,12 +318,12 @@ footer p{margin:0}
         <li><a href="#brands">For brands</a></li>
         <li><a href="#football">Football</a></li>
         <li><a href="#achievements">What we've built</a></li>
-        <li><a href="#shop">Travel eSIM</a></li>
+        <li><a href="https://www.septoo.com/plans" data-shop-link>Travel eSIM</a></li>
         <li><a href="#team">Who we are</a></li>
       </ul>
     </nav>
     <div style="display:flex;gap:10px;align-items:center">
-      <a class="btn btn-cyan" href="#shop">Buy an eSIM</a>
+      <a class="btn btn-cyan" href="https://www.septoo.com/plans" data-shop-link>Buy an eSIM</a>
       <button class="btn btn-line menu-btn" aria-controls="nav" aria-expanded="false" id="menuBtn">Menu</button>
     </div>
   </div>
@@ -334,7 +338,7 @@ footer p{margin:0}
       <p class="lede">Acqua Telecom builds and runs mobile networks for football clubs, banks, operators and communities. Your customers get a better phone plan with your name on it. You get a new monthly revenue line, and a place on the one device they never put down.</p>
       <div class="hero-actions">
         <a class="btn btn-cyan" href="#contact">Launch your network</a>
-        <a class="btn btn-orange" href="#shop">Get a travel eSIM</a>
+        <a class="btn btn-orange" href="https://www.septoo.com/plans" data-shop-link>Get a travel eSIM</a>
       </div>
       <div class="wins">
         <div><b>4 club networks</b>launched in the UK</div>
@@ -392,7 +396,7 @@ footer p{margin:0}
       <article class="market"><span class="flag">UK</span><h3>United Kingdom</h3><p>Club networks led by Celtic Mobile, SIM-only and eSIM plans sold directly, and networks for communities that need roaming built in.</p><div class="state"><span class="dot"></span>Live</div></article>
       <article class="market"><span class="flag">USA</span><h3>United States</h3><p>Affinity networks for communities, universities, retailers and sport, where members get a better line and the organisation shares the revenue.</p><div class="state"><span class="dot amber"></span>New platform, first partners integrating</div></article>
       <article class="market"><span class="flag">KSA</span><h3>Saudi Arabia</h3><p>A travel eSIM sold inside a leading Saudi operator's app, and a programme that brings banks and football clubs onto its network as their own brands.</p><div class="state"><span class="dot amber"></span>Launching October 2026</div></article>
-      <article class="market"><span class="flag">eSIM</span><h3>Travel eSIM</h3><p>A ready-made travel eSIM business for operators, banks and brands, white-label or by API. Or buy one from us below.</p><div class="state"><span class="dot"></span>Live</div></article>
+      <article class="market"><span class="flag">eSIM</span><h3>Travel eSIM</h3><p>A ready-made travel eSIM business for operators, banks and brands, white-label or by API. Or <a href="https://www.septoo.com/plans" data-shop-link>buy one for your next trip</a>.</p><div class="state"><span class="dot"></span>Live</div></article>
     </div>
   </div>
 </section>
@@ -414,8 +418,8 @@ footer p{margin:0}
     </div>
 
     <div class="built-list">
-      <div><b>A loyalty ladder fans can see</b><p>Guaranteed rewards that grow the longer a fan stays, instead of a prize draw.</p></div>
-      <div><b>Live before kickoff</b><p>An eSIM that activates in minutes, so a fan can join from the stand.</p></div>
+      <div><b>A loyalty ladder fans can climb</b><p>Guaranteed rewards that grow the longer a fan stays, instead of a prize draw.</p></div>
+      <div><b>Live before kick-off</b><p>eSIM plans that activate in minutes, so fans can enjoy the full 90.</p></div>
       <div><b>Each club, its own network</b><p>Its own website, plans, payments and support inbox, on one shared platform.</p></div>
     </div>
   </div>
@@ -529,7 +533,7 @@ footer p{margin:0}
   <div class="wrap">
     <div class="head">
       <h2>Who we are</h2>
-      <p class="lede">A small, senior team that has launched and run mobile networks for clubs, operators and brands, from Switzerland and the UK.</p>
+      <p class="lede">A small, senior team that has launched and run mobile networks for clubs, operators and brands, from Switzerland and the UK. Acqua Telecom is the brand of Renato Andre de Andrade Reis, Zug, Switzerland; our UK services and partner contracts are delivered by <a href="https://www.septoo.com">Septoo Limited</a>, our UK company, registered in England and Wales (no. 14752958).</p>
     </div>
     <div class="team">
       <article class="person"><div class="mono" aria-hidden="true">RA</div><h3>Renato Andre de Andrade Reis</h3><p class="role">Founder, Acqua Telecom · CEO, Septoo</p><p>Andre founded Acqua Telecom so that any brand with a loyal audience could own a mobile network. He built the club networks in the UK and leads Septoo's partnerships with operators, banks and brands in the UK, the USA and Saudi Arabia. Based in Zug, Switzerland.</p></article>
@@ -553,7 +557,14 @@ footer p{margin:0}
 <footer>
   <div class="wrap">
     <a class="logo" href="#home"><span class="acqua-logo" role="img" aria-label="Acqua Telecom"></span></a>
-    <p>© 2026 Acqua Telecom, Zug, Switzerland<br>Septoo Limited, company no. 14752958, Watford WD18 8YA, England</p>
+    <nav class="legal-links" aria-label="Legal">
+      <a href="/legal#terms">Terms &amp; Conditions</a>
+      <a href="/legal#privacy">Privacy Policy</a>
+      <a href="/legal#cookies">Cookie Policy</a>
+      <a href="/legal#complaints">Complaints</a>
+      <a href="mailto:support@acquatelecom.com">Contact</a>
+    </nav>
+    <p>© 2026 Acqua Telecom, Zug, Switzerland<br>UK services provided by Septoo Limited, company no. 14752958, Building 2 First Floor, Croxley Business Park, Watford WD18 8YA, England</p>
   </div>
 </footer>
 
@@ -655,7 +666,9 @@ async function bootShop(){
   const sel=$("#dest"); const grp=(label,list)=>`<optgroup label="${label}">`+list.map(d=>`<option value="${d.id}">${d.name}</option>`).join("")+"</optgroup>";
   sel.innerHTML=grp("Regions",TRAVEL.destinations.filter(d=>d.region))+grp("Countries",TRAVEL.destinations.filter(d=>!d.region));
   setTab("travel");
-  try{ const st=await (await fetch(CONFIG.statusEndpoint)).json(); $("#previewNote").hidden=!!st.live; }catch(e){ $("#previewNote").hidden=false; }
+  try{ const st=await (await fetch(CONFIG.statusEndpoint)).json(); $("#previewNote").hidden=!!st.live;
+    if(st.live) document.querySelectorAll("[data-shop-link]").forEach(a=>{ a.href="#shop"; a.removeAttribute("target"); a.removeAttribute("rel"); });
+  }catch(e){ $("#previewNote").hidden=false; }
 }
 bootShop();
 </script>
