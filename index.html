@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Acqua Telecom — every brand can be a mobile brand</title>
+<link rel="canonical" href="https://www.acquatelecom.com/">
+<link rel="icon" type="image/png" href="/img/logo-dark.png">
+<meta property="og:title" content="Acqua Telecom — every brand can be a mobile brand">
+<meta property="og:image" content="https://www.acquatelecom.com/img/hero.jpg">
+<meta property="og:url" content="https://www.acquatelecom.com/">
+<meta name="description" content="Acqua Telecom builds and runs branded mobile networks for football clubs, banks, operators and communities in the UK, the USA and Saudi Arabia, and sells travel eSIMs and UK mobile plans.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--shot-communline:url(img/shot-communline.jpg);--shot-latics:url(img/shot-latics.jpg);--shot-rovers:url(img/shot-rovers.jpg);--shot-hibs:url(img/shot-hibs.jpg);--shot-celtic:url(img/shot-celtic.jpg)}
+:root{--logo-dark:url(img/logo-dark.png);--logo-light:url(img/logo-light.png);--img-hero:url(img/hero.jpg);--img-enterprise:url(img/enterprise.jpg);--img-football:url(img/football.jpg);--img-travel:url(img/travel.jpg);--img-people:url(img/people.jpg)}
+
+/* Acqua brand palette (teal / black / cyan with orange + gold accents) */
+:root{
+  --black:#060A0A; --ink:#0D1515; --deep:#063B3F; --teal:#0A7377; --teal-mid:#0D9398;
+  --cyan:#00C9CF; --cyan-pale:#B8F0F2; --orange:#E87B2A; --gold:#F0C142;
+  --text:#EAF7F7; --muted:#9FC2C3; --line:rgba(184,240,242,.14); --card:#0B1A1B;
+  --serif:"Playfair Display", Georgia, "Times New Roman", serif;
+  --sans:"Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:dark;
+}
+/* The brand is dark by design; the same tokens apply in both viewer themes. */
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){ --text:#EAF7F7; } }
+:root[data-theme="dark"]{ --text:#EAF7F7; }
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
+body{margin:0;background:var(--black);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%}
+a{color:var(--cyan)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1220px;margin:0 auto;padding-left:24px;padding-right:24px}
+h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.08;margin:0;letter-spacing:-.015em}
+h2{font-size:clamp(34px,5vw,60px);max-width:16ch}
+h3{font-size:26px}
+p{margin:0 0 1em;max-width:64ch}
+.lede{font-size:19px;color:var(--muted)}
+section{padding-top:110px;padding-bottom:110px;position:relative}
+.head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:end;margin-bottom:56px}
+.head p{margin:0}
+@media (max-width:860px){.head{grid-template-columns:1fr;gap:18px}}
+
+/* ---------- logo ---------- */
+.logo{display:inline-flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+.logo .wm{font-family:var(--sans);font-weight:800;font-size:19px;letter-spacing:.02em;line-height:1}
+.logo .wm b{color:var(--cyan);font-weight:800}
+.logo .wm small{display:block;font-weight:600;font-size:11px;letter-spacing:.24em;color:var(--muted);margin-top:4px}
+
+.logo .logo-feature{width:min(360px,70vw);margin:0 auto 40px}
+/* ---------- header ---------- */
+header.top{position:fixed;top:0;left:0;right:0;z-index:30;padding-top:env(safe-area-inset-top,0px);transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+header.top.solid{background:rgba(6,10,10,.86);backdrop-filter:blur(10px);border-color:var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:84px;gap:16px}
+nav ul{list-style:none;display:flex;gap:28px;margin:0;padding:0}
+nav a{color:var(--text);text-decoration:none;font-size:15px;font-weight:600;opacity:.85}
+nav a:hover{opacity:1;color:var(--cyan)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:999px;padding:14px 24px;font:700 15px/1 var(--sans);cursor:pointer;text-decoration:none;transition:transform .15s, box-shadow .2s, background .2s}
+.btn:active{transform:translateY(1px)}
+.btn-cyan{background:var(--cyan);color:var(--black);box-shadow:0 0 0 0 rgba(0,201,207,.5)}
+.btn-cyan:hover{box-shadow:0 0 28px 2px rgba(0,201,207,.45)}
+.btn-orange{background:var(--orange);color:var(--black)}
+.btn-orange:hover{box-shadow:0 0 28px 2px rgba(232,123,42,.45)}
+.btn-line{background:transparent;color:var(--text);box-shadow:inset 0 0 0 1.5px rgba(184,240,242,.35)}
+.btn-line:hover{box-shadow:inset 0 0 0 1.5px var(--cyan);color:var(--cyan)}
+.menu-btn{display:none}
+@media (max-width:960px){
+  nav{display:none;position:absolute;top:84px;left:0;right:0;background:var(--black);border-bottom:1px solid var(--line)}
+  nav.open{display:block}
+  nav ul{flex-direction:column;gap:0;padding:8px 24px 18px}
+  nav li a{display:block;padding:14px 0;border-bottom:1px solid var(--line)}
+  .menu-btn{display:inline-flex}
+  .top .btn-cyan{display:none}
+}
+
+/* ---------- hero ---------- */
+.hero{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding-top:130px;padding-bottom:80px;overflow:hidden;
+  background:radial-gradient(900px 600px at 78% 45%, rgba(10,115,119,.55), transparent 65%), radial-gradient(700px 500px at 10% 100%, rgba(6,59,63,.9), transparent 70%), var(--black)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center;width:100%}
+.hero h1{font-size:clamp(44px,6.2vw,86px);max-width:13ch}
+.hero h1 em{font-style:italic;font-weight:600;color:var(--cyan-pale)}
+.hero .lede{font-size:20px;margin:28px 0 36px;max-width:52ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+.signal{position:relative;aspect-ratio:1;max-width:520px;width:100%;justify-self:center}
+.signal svg{width:100%;height:100%;overflow:visible}
+.ring{fill:none;stroke:var(--cyan);stroke-width:1.2;transform-origin:250px 250px;animation:pulse 4.8s cubic-bezier(.2,.6,.3,1) infinite;opacity:0}
+.ring:nth-child(2){animation-delay:1.2s}.ring:nth-child(3){animation-delay:2.4s}.ring:nth-child(4){animation-delay:3.6s}
+@keyframes pulse{0%{transform:scale(.18);opacity:.9}100%{transform:scale(1);opacity:0}}
+.orbit{transform-origin:250px 250px;animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.node-label{font:700 15px var(--sans);fill:var(--text)}
+.node-sub{font:500 11px var(--sans);fill:var(--muted)}
+.counter-rot{transform-box:fill-box;transform-origin:center;animation:spin 60s linear infinite reverse}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.signal{max-width:380px;order:-1;margin-bottom:-20px}}
+@media (prefers-reduced-motion:reduce){.ring{animation:none;opacity:.25}.ring:nth-child(2){transform:scale(.5)}.ring:nth-child(3){transform:scale(.75)}.orbit,.counter-rot{animation:none}html{scroll-behavior:auto}.ticker-track{animation:none!important}}
+
+/* ---------- ticker of built networks ---------- */
+.ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;background:var(--ink)}
+.ticker-track{display:flex;gap:56px;width:max-content;padding:22px 0;animation:tick 38s linear infinite}
+.ticker span{font-family:var(--serif);font-size:30px;font-weight:600;white-space:nowrap;color:var(--text)}
+.ticker span i{font-style:normal;color:var(--cyan);margin-left:56px}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ---------- markets ---------- */
+.markets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+@media (max-width:1000px){.markets{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.markets{grid-template-columns:1fr}}
+.market{background:var(--card);padding:30px 26px 32px;display:flex;flex-direction:column;gap:14px;position:relative;transition:background .25s}
+.market:hover{background:#0E2223}
+.market .flag{font:800 13px var(--sans);letter-spacing:.04em;color:var(--black);background:var(--cyan);border-radius:999px;padding:6px 12px;align-self:flex-start}
+.market:nth-child(2) .flag{background:var(--gold)}
+.market:nth-child(3) .flag{background:var(--orange)}
+.market:nth-child(4) .flag{background:var(--cyan-pale)}
+.market h3{font-size:30px}
+.market p{color:var(--muted);margin:0;font-size:16px}
+.market .state{margin-top:auto;font-size:14px;font-weight:700;color:var(--text);padding-top:14px;border-top:1px solid var(--line)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--cyan);margin-right:8px;box-shadow:0 0 0 0 rgba(0,201,207,.7);animation:blink 2s infinite}
+.dot.amber{background:var(--gold);animation:none}
+@keyframes blink{0%{box-shadow:0 0 0 0 rgba(0,201,207,.7)}70%{box-shadow:0 0 0 10px rgba(0,201,207,0)}100%{box-shadow:0 0 0 0 rgba(0,201,207,0)}}
+
+/* ---------- stories ---------- */
+.stories{background:linear-gradient(180deg,var(--black),var(--deep) 140%)}
+.story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:56px;align-items:center;padding:56px 0;border-top:1px solid var(--line)}
+.story:nth-child(even) .story-media{order:-1}
+@media (max-width:900px){.story{grid-template-columns:1fr;gap:28px}.story:nth-child(even) .story-media{order:0}}
+.story .when{font-weight:700;color:var(--gold);font-size:15px;margin-bottom:10px}
+.story h3{font-size:clamp(28px,3.2vw,40px);margin-bottom:18px}
+.story p{color:var(--muted)}
+.story blockquote{margin:22px 0 0;padding:4px 0 4px 20px;border-left:3px solid var(--orange);font-family:var(--serif);font-style:italic;font-size:21px;color:var(--text);max-width:46ch}
+.story .facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.story .facts span{font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;background:rgba(0,201,207,.1);color:var(--cyan-pale);border:1px solid rgba(0,201,207,.25)}
+
+/* ---------- browser thumbnails ---------- */
+.browser{border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 30px 80px -20px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.06);transform:perspective(1400px) rotateY(-4deg) rotateX(2deg);transition:transform .4s}
+.story:nth-child(even) .browser{transform:perspective(1400px) rotateY(4deg) rotateX(2deg)}
+.browser:hover,.story:nth-child(even) .browser:hover{transform:none}
+.bar{display:flex;align-items:center;gap:6px;padding:10px 12px;background:#e9eef0}
+.bar i{width:10px;height:10px;border-radius:50%;background:#c9d2d5}
+.bar i:first-child{background:#ff6058}.bar i:nth-child(2){background:#ffbd2e}.bar i:nth-child(3){background:#28c940}
+.bar .url{margin-left:10px;flex:1;background:#fff;border-radius:6px;font:500 12px var(--sans);color:#56676b;padding:4px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.screen{aspect-ratio:16/10;position:relative;overflow:hidden;font-family:var(--sans)}
+.s-nav{display:flex;justify-content:space-between;align-items:center;padding:4% 5%;font-weight:800;font-size:clamp(9px,1.1vw,13px)}
+.s-nav em{font-style:normal;display:flex;gap:10px;font-weight:600;opacity:.8}
+.s-hero{padding:2% 5%}
+.s-hero b{display:block;font-family:var(--serif);font-size:clamp(16px,2.6vw,34px);line-height:1.05;max-width:12ch}
+.s-hero small{display:block;font-size:clamp(8px,.9vw,11px);opacity:.8;margin-top:6px;max-width:30ch}
+.s-pill{display:inline-block;margin-top:8%;padding:2.2% 5%;border-radius:999px;font-weight:800;font-size:clamp(8px,.9vw,11px)}
+.s-plans{position:absolute;left:5%;right:5%;bottom:6%;display:grid;grid-template-columns:repeat(3,1fr);gap:4%}
+.s-plans div{border-radius:8px;padding:6% 8%;font-size:clamp(7px,.85vw,11px);font-weight:700;line-height:1.3}
+.s-plans div strong{display:block;font-size:clamp(11px,1.5vw,18px)}
+.s-ticket{position:absolute;right:5%;top:22%;width:34%;aspect-ratio:1.5;border-radius:10px;padding:3%;font-size:clamp(7px,.8vw,10px);font-weight:700}
+.s-crm{display:grid;grid-template-columns:20% 1fr;height:100%}
+.s-side{background:#0d1b1c;padding:8% 10%;display:flex;flex-direction:column;gap:8%}
+.s-side span{height:6px;border-radius:3px;background:rgba(255,255,255,.18)}
+.s-side span:first-child{background:var(--cyan);width:70%}
+.s-main{background:#f3f7f7;padding:4%;display:flex;flex-direction:column;gap:4%}
+.s-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:4%}
+.s-kpis div{background:#fff;border-radius:6px;padding:7%;font:700 clamp(7px,.8vw,10px) var(--sans);color:#4b6064}
+.s-kpis div strong{display:block;font-size:clamp(11px,1.5vw,18px);color:#0D1515}
+.s-rows{background:#fff;border-radius:6px;flex:1;padding:3% 4%;display:flex;flex-direction:column;justify-content:space-around}
+.s-rows span{height:7px;border-radius:4px;background:#e1eaeb;display:block}
+.s-rows span:nth-child(odd){width:86%}
+.s-rows span:nth-child(3n){background:rgba(0,201,207,.35);width:60%}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+@media (max-width:960px){.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.gallery{grid-template-columns:1fr}}
+.gallery figure{margin:0}
+.gallery .browser,.gallery .story:nth-child(even) .browser{transform:none}
+.gallery .browser:hover{transform:translateY(-6px)}
+.gallery figcaption{margin-top:14px}
+.gallery figcaption b{display:block;font-size:17px}
+.gallery figcaption span{font-size:14px;color:var(--muted)}
+
+/* ---------- shop ---------- */
+.shop{background:radial-gradient(800px 500px at 90% 0%, rgba(232,123,42,.18), transparent 60%), var(--ink);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.preview-note{border:1.5px dashed var(--gold);color:var(--gold);border-radius:12px;padding:12px 16px;font-size:14px;margin-bottom:28px;max-width:none}
+.tabs{display:inline-flex;background:var(--card);border-radius:999px;padding:6px;gap:4px;margin-bottom:28px;border:1px solid var(--line)}
+.tab{border:0;background:transparent;color:var(--text);font:700 15px/1 var(--sans);padding:13px 22px;border-radius:999px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--cyan);color:var(--black)}
+.shop-grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:24px;align-items:start}
+@media (max-width:960px){.shop-grid{grid-template-columns:1fr}}
+.panel{background:var(--card);border-radius:22px;padding:30px;border:1px solid var(--line)}
+.field{margin-bottom:24px}
+.field label,.field .legend{display:block;font-weight:700;font-size:15px;margin-bottom:10px}
+select,input[type=email]{width:100%;font:500 16px var(--sans);padding:14px 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--black);color:var(--text)}
+select:focus,input:focus{border-color:var(--cyan);outline:none}
+.options{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.opt > span{display:block;border:1.5px solid var(--line);border-radius:14px;padding:16px;background:var(--black);transition:border-color .15s, transform .15s}
+.opt:hover > span{transform:translateY(-2px)}
+.opt b{display:block;font-size:20px}
+.opt small{color:var(--muted);font-size:14px}
+.opt .price{display:block;margin-top:8px;font-weight:800;color:var(--gold);font-size:17px}
+.opt input:checked + span{border-color:var(--cyan);box-shadow:0 0 0 1.5px var(--cyan) inset, 0 0 24px -6px rgba(0,201,207,.6)}
+.opt input:focus-visible + span{outline:3px solid var(--gold);outline-offset:2px}
+.summary{position:sticky;top:96px;background:linear-gradient(160deg,var(--teal),var(--deep));border:0}
+.summary h3{font-size:24px}
+.summary .total{font-family:var(--serif);font-size:56px;font-weight:700;margin:14px 0 2px;color:#fff}
+.summary ul{padding-left:18px;color:var(--cyan-pale);font-size:15px;margin:14px 0 22px}
+.summary .btn{width:100%;padding:18px}
+.form-msg{font-size:14px;margin-top:12px;min-height:1.2em}
+.form-msg.err{color:#FFC9B0}
+.fine{font-size:13px;color:var(--muted);margin-top:14px}
+.summary .fine{color:var(--cyan-pale);opacity:.8}
+
+/* ---------- team ---------- */
+.team{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+@media (max-width:900px){.team{grid-template-columns:1fr}}
+.person{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:32px;position:relative;overflow:hidden}
+.person::after{content:"";position:absolute;right:-60px;top:-60px;width:180px;height:180px;border-radius:50%;border:1.5px solid rgba(0,201,207,.25)}
+.person .mono{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-size:34px;font-weight:700;background:var(--teal);color:#fff;margin-bottom:22px;box-shadow:0 0 0 6px rgba(0,201,207,.12)}
+.person:nth-child(2) .mono{background:var(--orange);color:var(--black);box-shadow:0 0 0 6px rgba(232,123,42,.14)}
+.person:nth-child(3) .mono{background:var(--gold);color:var(--black);box-shadow:0 0 0 6px rgba(240,193,66,.14)}
+.person h3{font-size:30px}
+.person .role{color:var(--cyan);font-weight:700;margin:6px 0 16px}
+.person p{color:var(--muted)}
+
+/* ---------- contact ---------- */
+.contact{background:radial-gradient(900px 500px at 50% 120%, rgba(0,201,207,.25), transparent 70%), var(--black);text-align:center}
+.contact h2{margin:0 auto;max-width:18ch;font-size:clamp(38px,6vw,76px)}
+.contact .lede{margin:24px auto 36px}
+.contact .mail{font-family:var(--serif);font-size:clamp(26px,4vw,48px);color:var(--cyan);text-decoration:none;border-bottom:2px solid rgba(0,201,207,.4);word-break:break-word}
+.contact .mail:hover{border-color:var(--cyan)}
+footer{border-top:1px solid var(--line);padding-top:36px;padding-bottom:48px;font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
+footer p{margin:0}
+/* ===== v4 additions ===== */
+.acqua-logo{display:block;background:var(--logo-dark) center/contain no-repeat;aspect-ratio:720/183}
+.logo .acqua-logo{height:34px}
+.light .acqua-logo,.acqua-logo.on-light{background-image:var(--logo-light)}
+/* hero with photo */
+.hero{background:var(--black);padding:0;min-height:auto;display:block}
+.hero-photo{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;background:var(--img-hero) right center/cover no-repeat}
+.hero-photo::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,10,10,.96) 0%,rgba(6,10,10,.82) 34%,rgba(6,10,10,.25) 62%,rgba(6,10,10,0) 80%),linear-gradient(0deg,rgba(6,10,10,.9) 0%,rgba(6,10,10,0) 35%)}
+.hero-photo .wrap{position:relative;width:100%;padding-top:140px;padding-bottom:64px}
+.hero h1{font-size:clamp(44px,6.4vw,92px);max-width:12ch}
+.hero .lede{color:#CFE5E6}
+@media (max-width:820px){.hero-photo{background-position:72% center}.hero-photo::before{background:linear-gradient(0deg,rgba(6,10,10,.97) 0%,rgba(6,10,10,.85) 55%,rgba(6,10,10,.35) 100%)}}
+.wins{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin-top:56px;border-top:1px solid var(--line)}
+.wins div{padding:20px 24px 0 0;font-size:15px;color:var(--muted)}
+.wins b{display:block;font-family:var(--serif);font-size:24px;color:#fff;line-height:1.2;margin-bottom:4px}
+@media (max-width:820px){.wins{grid-template-columns:repeat(2,minmax(0,1fr));gap:0}.wins div{padding:18px 16px 0 0}}
+/* light section */
+.light{background:#F2FAFA;color:#0D1515;--muted:#3A5556;--line:rgba(13,21,21,.12)}
+.light .lede,.light p{color:#3A5556}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+@media (max-width:900px){.split{grid-template-columns:1fr;gap:32px}}
+.photo{border-radius:24px;overflow:hidden;aspect-ratio:16/10;background:center/cover no-repeat;box-shadow:0 30px 70px -30px rgba(6,59,63,.55)}
+.benefits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 32px;margin-top:8px}
+@media (max-width:560px){.benefits{grid-template-columns:1fr}}
+.benefits h3{font-family:var(--sans);font-size:18px;font-weight:800;margin-bottom:6px;color:#0D1515}
+.benefits h3::before{content:"";display:block;width:28px;height:4px;border-radius:2px;background:var(--cyan);margin-bottom:14px}
+.benefits p{margin:0;font-size:16px}
+.for-whom{margin-top:56px;padding-top:32px;border-top:1px solid var(--line)}
+.for-whom p{font-weight:700;color:#0D1515;margin-bottom:14px}
+.tags{display:flex;flex-wrap:wrap;gap:10px}
+.tags span{padding:10px 16px;border-radius:999px;background:#fff;border:1px solid rgba(10,115,119,.25);font-weight:600;font-size:15px;color:#063B3F}
+/* how it works */
+.how{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:64px;counter-reset:h}
+@media (max-width:820px){.how{grid-template-columns:1fr}}
+.how div{counter-increment:h;background:#fff;border-radius:20px;padding:28px;border:1px solid var(--line)}
+.how div::before{content:counter(h);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--teal);color:#fff;font-weight:800;margin-bottom:18px}
+.how h3{font-size:24px;margin-bottom:8px;color:#0D1515}
+.how p{margin:0;font-size:16px}
+/* photo banners */
+.banner{position:relative;border-radius:28px;overflow:hidden;min-height:520px;display:flex;align-items:flex-end;background:center/cover no-repeat}
+.banner::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,10,10,.92) 0%,rgba(6,10,10,.55) 45%,rgba(6,10,10,0) 75%)}
+.banner .inner{position:relative;padding:44px;max-width:760px}
+.banner h2{max-width:18ch}
+.banner p{color:#D5E9EA;margin:16px 0 0}
+@media (max-width:600px){.banner{min-height:440px}.banner .inner{padding:26px}}
+.clubs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 32px;margin-top:48px}
+@media (max-width:760px){.clubs{grid-template-columns:1fr}}
+@media (max-width:520px){.clubs{grid-template-columns:1fr}}
+.clubs figure{margin:0}
+.clubs figcaption{margin-top:12px}
+.clubs figcaption b{display:block}
+.clubs figcaption span{font-size:14px;color:var(--muted)}
+.clubs .browser{transform:none;transition:transform .3s}.clubs .browser:hover{transform:translateY(-6px)}
+.screen.shot{background:top center/cover no-repeat}
+.built-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:40px}
+@media (max-width:820px){.built-list{grid-template-columns:1fr}}
+.built-list div{border-top:2px solid var(--cyan);padding-top:16px}
+.built-list b{display:block;font-size:18px;margin-bottom:6px}
+.built-list p{color:var(--muted);margin:0;font-size:16px}
+.story .when{color:var(--cyan)}
+.people{padding-top:0;padding-bottom:0}
+.people .banner{min-height:560px}
+.contact.light{background:#F2FAFA}
+.contact.light h2{color:#0D1515}
+.contact.light .mail{color:#0A7377;border-color:rgba(10,115,119,.35)}
+.logo-feature{width:min(340px,70vw);margin:0 auto 44px}
+</style>
+</head>
+<body>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="logo" href="#home"><span class="acqua-logo" role="img" aria-label="Acqua Telecom"></span></a>
+    <nav id="nav" aria-label="Main">
+      <ul>
+        <li><a href="#brands">For brands</a></li>
+        <li><a href="#football">Football</a></li>
+        <li><a href="#achievements">What we've built</a></li>
+        <li><a href="#shop">Travel eSIM</a></li>
+        <li><a href="#team">Who we are</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a class="btn btn-cyan" href="#shop">Buy an eSIM</a>
+      <button class="btn btn-line menu-btn" aria-controls="nav" aria-expanded="false" id="menuBtn">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main id="home">
+
+<section class="hero">
+  <div class="hero-photo" role="img" aria-label="People in London, Los Angeles and Riyadh connected on their phones">
+    <div class="wrap">
+      <h1>Every brand can be a mobile brand.</h1>
+      <p class="lede">Acqua Telecom builds and runs mobile networks for football clubs, banks, operators and communities. Your customers get a better phone plan with your name on it. You get a new monthly revenue line, and a place on the one device they never put down.</p>
+      <div class="hero-actions">
+        <a class="btn btn-cyan" href="#contact">Launch your network</a>
+        <a class="btn btn-orange" href="#shop">Get a travel eSIM</a>
+      </div>
+      <div class="wins">
+        <div><b>4 club networks</b>launched in the UK</div>
+        <div><b>3 countries</b>UK, USA and Saudi Arabia</div>
+        <div><b>50,000 eSIMs</b>ready for travellers</div>
+        <div><b>One platform</b>built and run by our team</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-label="Networks we have built">
+  <div class="ticker-track">
+    <span>Celtic Mobile<i>●</i></span><span>Hibs Connect<i>●</i></span><span>Rovers Connect<i>●</i></span><span>Latics Connect<i>●</i></span><span>CommunLine<i>●</i></span><span>Travel eSIM<i>●</i></span>
+    <span aria-hidden="true">Celtic Mobile<i>●</i></span><span aria-hidden="true">Hibs Connect<i>●</i></span><span aria-hidden="true">Rovers Connect<i>●</i></span><span aria-hidden="true">Latics Connect<i>●</i></span><span aria-hidden="true">CommunLine<i>●</i></span><span aria-hidden="true">Travel eSIM<i>●</i></span>
+  </div>
+</div>
+
+<section id="brands" class="light">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <h2>New revenue from an audience you already have</h2>
+        <p class="lede" style="margin-top:20px">Your fans, members and customers already pay someone for mobile every month. With your own network, that bill carries your name and part of it comes back to you.</p>
+        <div class="benefits">
+          <div><h3>Recurring revenue</h3><p>A share of every monthly bill, month after month, from customers who already love your brand.</p></div>
+          <div><h3>Every day, in their pocket</h3><p>Your brand on the device people check a hundred times a day, not just on matchday or payday.</p></div>
+          <div><h3>Know your customers</h3><p>A direct relationship with your audience, so you can reward them and offer them more.</p></div>
+          <div><h3>No capital, no risk</h3><p>We bring the network, SIMs, shop, billing and support. You bring the audience.</p></div>
+        </div>
+      </div>
+      <div class="photo" style="background-image:var(--img-enterprise)" role="img" aria-label="Partners reviewing a mobile network launch"></div>
+    </div>
+
+    <div class="how">
+      <div><h3>You bring the audience</h3><p>Fans, members, account holders or customers who already trust your brand.</p></div>
+      <div><h3>We build the network</h3><p>Plans, SIMs and eSIMs, a branded shop, billing, CRM and support, live in weeks.</p></div>
+      <div><h3>You share the revenue</h3><p>Every line earns for your brand every month, and we keep it running.</p></div>
+    </div>
+
+    <div class="for-whom">
+      <p>Brands we build for</p>
+      <div class="tags"><span>Football clubs</span><span>Banks and fintechs</span><span>Mobile operators</span><span>Retailers and supermarkets</span><span>Universities</span><span>Faith and community groups</span><span>Sports leagues</span><span>Travel brands</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="markets">
+  <div class="wrap">
+    <div class="head">
+      <h2>Live in the UK, growing worldwide</h2>
+      <p class="lede">One team and one platform behind every network, whatever the market.</p>
+    </div>
+    <div class="markets">
+      <article class="market"><span class="flag">UK</span><h3>United Kingdom</h3><p>Club networks led by Celtic Mobile, SIM-only and eSIM plans sold directly, and networks for communities that need roaming built in.</p><div class="state"><span class="dot"></span>Live</div></article>
+      <article class="market"><span class="flag">USA</span><h3>United States</h3><p>Affinity networks for communities, universities, retailers and sport, where members get a better line and the organisation shares the revenue.</p><div class="state"><span class="dot amber"></span>New platform, first partners integrating</div></article>
+      <article class="market"><span class="flag">KSA</span><h3>Saudi Arabia</h3><p>A travel eSIM sold inside a leading Saudi operator's app, and a programme that brings banks and football clubs onto its network as their own brands.</p><div class="state"><span class="dot amber"></span>Launching October 2026</div></article>
+      <article class="market"><span class="flag">eSIM</span><h3>Travel eSIM</h3><p>A ready-made travel eSIM business for operators, banks and brands, white-label or by API. Or buy one from us below.</p><div class="state"><span class="dot"></span>Live</div></article>
+    </div>
+  </div>
+</section>
+
+<section id="football">
+  <div class="wrap">
+    <div class="banner" style="background-image:var(--img-football)" role="img" aria-label="Football fans in a stadium sharing their phones">
+      <div class="inner">
+        <h2>Football is where we started</h2>
+        <p class="lede">We launched the UK's club mobile networks: a network for each club, in the club's colours, giving fans rewards for staying and matchday moments in their pocket, and giving the club a new revenue stream from its own supporters.</p>
+      </div>
+    </div>
+
+    <div class="clubs">
+      <figure><div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url">celticmobile.co.uk</span></div><div class="screen shot" style="background-image:var(--shot-celtic)" role="img" aria-label="Celtic Mobile website homepage"></div></div><figcaption><b>Celtic Mobile</b><span>Our flagship UK network, powered by Acqua</span></figcaption></figure>
+      <figure><div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url">hibsconnect.com</span></div><div class="screen shot" style="background-image:var(--shot-hibs)" role="img" aria-label="Hibs Connect website homepage"></div></div><figcaption><b>Hibs Connect</b><span>The mobile network for Hibernian supporters</span></figcaption></figure>
+      <figure><div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url">roversconnect.com</span></div><div class="screen shot" style="background-image:var(--shot-rovers)" role="img" aria-label="Rovers Connect website homepage"></div></div><figcaption><b>Rovers Connect</b><span>The mobile network for Blackburn Rovers supporters</span></figcaption></figure>
+      <figure><div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url">laticsconnect.com</span></div><div class="screen shot" style="background-image:var(--shot-latics)" role="img" aria-label="Latics Connect website homepage"></div></div><figcaption><b>Latics Connect</b><span>The mobile network for Wigan Athletic supporters</span></figcaption></figure>
+    </div>
+
+    <div class="built-list">
+      <div><b>A loyalty ladder fans can see</b><p>Guaranteed rewards that grow the longer a fan stays, instead of a prize draw.</p></div>
+      <div><b>Live before kickoff</b><p>An eSIM that activates in minutes, so a fan can join from the stand.</p></div>
+      <div><b>Each club, its own network</b><p>Its own website, plans, payments and support inbox, on one shared platform.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="achievements" class="stories">
+  <div class="wrap">
+    <div class="head">
+      <h2>What we've built</h2>
+      <p class="lede">Everything a brand needs to run a mobile network, built by our own team, so every new partner launches faster than the last.</p>
+    </div>
+
+    <article class="story">
+      <div>
+        <p class="when">Our platform</p>
+        <h3>One platform behind every brand we run</h3>
+        <p>Customers, plans, billing, eSIMs and support for every brand, in one system that we own and our own team runs. A new brand is a new setup on the same platform, not a new IT project.</p>
+        <div class="facts"><span>Multi-brand CRM</span><span>Billing and payments</span><span>eSIM delivery</span></div>
+      </div>
+      <div class="story-media">
+        <div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url">crm.septoo.com</span></div>
+          <div class="screen"><div class="s-crm"><div class="s-side"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="s-main"><div class="s-kpis"><div>Brands<strong>6</strong></div><div>Active lines<strong>●●●</strong></div><div>Tickets<strong>Open</strong></div></div>
+            <div class="s-rows"><span></span><span></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      </div>
+    </article>
+
+    <article class="story">
+      <div>
+        <p class="when">Travel eSIM</p>
+        <h3>A travel eSIM business any brand can launch</h3>
+        <p>We stocked 50,000 travel SIMs and built the whole business around them: the storefront, checkout in the buyer's own currency, instant eSIM delivery and support. Operators and banks launch it under their own name, by API or fully run by us. The first operator launch in Saudi Arabia goes live in October 2026.</p>
+        <div class="facts"><span>50,000 SIMs in stock</span><span>Local-currency checkout</span><span>White-label or API</span></div>
+      </div>
+      <div class="story-media">
+        <div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url">travel eSIM storefront</span></div>
+          <div class="screen" style="background:linear-gradient(160deg,#063B3F,#0A7377);color:#fff">
+            <div class="s-nav"><span>TRAVEL eSIM</span><em><span>Destinations</span><span>Plans</span><span>Help</span></em></div>
+            <div class="s-hero"><b>Land connected.</b><small>Pick your destination, pay in your currency, scan the QR code.</small><span class="s-pill" style="background:#00C9CF;color:#060A0A">Find your eSIM</span></div>
+            <div class="s-plans"><div style="background:rgba(255,255,255,.12)">Europe<strong>5GB</strong></div><div style="background:#F0C142;color:#060A0A">Global<strong>20GB</strong></div><div style="background:rgba(255,255,255,.12)">USA<strong>10GB</strong></div></div>
+          </div></div>
+      </div>
+    </article>
+
+    <article class="story">
+      <div>
+        <p class="when">United States</p>
+        <h3>Community networks that give back</h3>
+        <p>In the US we build affinity networks: members of a community, a university or a faith group get a better phone line, and every bill helps fund the organisation they belong to. CommunLine and our first US partners are being built on our new US platform.</p>
+        <div class="facts"><span>Community and affinity networks</span><span>Revenue share for partners</span></div>
+      </div>
+      <div class="story-media">
+        <div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url">communline.com</span></div><div class="screen shot" style="background-image:var(--shot-communline)" role="img" aria-label="CommunLine website homepage"></div></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="people">
+  <div class="wrap">
+    <div class="banner" style="background-image:var(--img-people)" role="img" aria-label="People paying, calling family and travelling with their phones">
+      <div class="inner">
+        <h2>Behind every line, someone staying connected</h2>
+        <p class="lede">Paying at a market stall, calling grandma on a Sunday, finding the way in a new city. Every network we build is for the people who use it every day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="shop" class="shop">
+  <div class="wrap">
+    <div class="banner" style="background-image:var(--img-travel);min-height:420px;margin-bottom:56px" role="img" aria-label="Travellers arriving in Istanbul using their phones">
+      <div class="inner">
+        <h2>Land connected</h2>
+        <p class="lede">Buy a travel eSIM for your next trip, or a UK plan with no contract. Pay by card and get your eSIM by email in minutes.</p>
+      </div>
+    </div>
+    <p class="preview-note" id="previewNote" hidden>Preview: checkout is not yet connected to live payments.</p>
+
+    <div class="tabs" role="tablist" aria-label="Product type">
+      <button class="tab" role="tab" id="tab-travel" aria-controls="shopPanel" aria-selected="true" data-tab="travel">Travel eSIM</button>
+      <button class="tab" role="tab" id="tab-uk" aria-controls="shopPanel" aria-selected="false" data-tab="uk">UK plans</button>
+    </div>
+
+    <div class="shop-grid" id="shopPanel" role="tabpanel" aria-labelledby="tab-travel">
+      <form class="panel" id="shopForm" novalidate>
+        <div class="field" id="destField"><label for="dest">Where are you going?</label><select id="dest" name="dest"></select></div>
+        <div class="field" id="simField" hidden>
+          <span class="legend" id="simLegend">SIM type</span>
+          <div class="options" role="radiogroup" aria-labelledby="simLegend">
+            <label class="opt"><input type="radio" name="simType" value="esim" checked><span><b>eSIM</b><small>Delivered by email</small></span></label>
+            <label class="opt"><input type="radio" name="simType" value="physical"><span><b>Physical SIM</b><small>Posted to a UK address</small></span></label>
+          </div>
+        </div>
+        <div class="field"><span class="legend" id="planLegend">Choose your plan</span><div class="options" id="plans" role="radiogroup" aria-labelledby="planLegend"></div></div>
+        <div class="field" style="margin-bottom:0"><label for="email">Email for your eSIM and receipt</label><input type="email" id="email" name="email" autocomplete="email" required placeholder="you@example.com"></div>
+      </form>
+      <aside class="panel summary" aria-live="polite">
+        <h3 id="sumTitle">Choose a plan</h3>
+        <div class="total" id="sumPrice">–</div>
+        <ul id="sumList"></ul>
+        <button class="btn btn-orange" id="payBtn" type="button">Pay with card</button>
+        <p class="form-msg" id="msg" role="status"></p>
+        <p class="fine">Secure checkout by Stripe, shown in your local currency. Check your phone supports eSIM before buying.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="team">
+  <div class="wrap">
+    <div class="head">
+      <h2>Who we are</h2>
+      <p class="lede">A small, senior team that has launched and run mobile networks for clubs, operators and brands, from Switzerland and the UK.</p>
+    </div>
+    <div class="team">
+      <article class="person"><div class="mono" aria-hidden="true">RA</div><h3>Renato Andre de Andrade Reis</h3><p class="role">Founder, Acqua Telecom · CEO, Septoo</p><p>Andre founded Acqua Telecom so that any brand with a loyal audience could own a mobile network. He built the club networks in the UK and leads Septoo's partnerships with operators, banks and brands in the UK, the USA and Saudi Arabia. Based in Zug, Switzerland.</p></article>
+      <article class="person"><div class="mono" aria-hidden="true">SD</div><h3>Simon Davies</h3><p class="role">Chief Operating Officer, Septoo</p><p>Simon runs Septoo's operations: network and supplier relationships, launches and the day-to-day running of our partners' mobile services.</p></article>
+      <article class="person"><div class="mono" aria-hidden="true">XL</div><h3>Xavier Lopez</h3><p class="role">Commercial lead, UK football</p><p>Xavier leads our commercial work and our partnerships with football clubs in the UK, from the first conversation to a club network in fans' pockets.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact light">
+  <div class="wrap">
+    <span class="acqua-logo logo-feature" role="img" aria-label="Acqua Telecom"></span>
+    <h2>Your audience already trusts you. Give them a network.</h2>
+    <p class="lede">Tell us about your fans, members or customers and the markets you're in. We'll show you what your own network could earn, on a revenue share with no capital from your side.</p>
+    <a class="mail" href="mailto:ra@acquatelecom.com">ra@acquatelecom.com</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#home"><span class="acqua-logo" role="img" aria-label="Acqua Telecom"></span></a>
+    <p>© 2026 Acqua Telecom, Zug, Switzerland<br>Septoo Limited, company no. 14752958, Watford WD18 8YA, England</p>
+  </div>
+</footer>
+
+<script>
+/* ================= CONFIG =================
+   checkoutEndpoint: server route that creates the Stripe Checkout session
+   (main Acqua Telecom Stripe account, see server/.env).
+   preview: true shows the sample-price notice. Set false at go-live. */
+const CONFIG = { checkoutEndpoint: "/api/checkout", preview: true };
+
+/* Travel eSIM retail prices (USD, 30 days), from Bridge rate sheets CHARGE_T02 and CHARGE_T02P15 (SP06):
+   lowest of the two rates per network; destination priced on its dearest mainstream network;
+   retail = cost per GB x GB x 1.16 (EUR->USD) x 1.5, rounded up to .99. Plans above $500 are not sold.
+   Wholesale costs are NOT published here; see pricing/travel-esim-prices.csv. */
+const TRAVEL = { days: 30, destinations: [
+    {"id":"europe","name":"Europe (32 countries)","region":true,"prices":{"1":2.99,"5":10.99,"10":20.99,"20":41.99}},
+    {"id":"afghanistan","name":"Afghanistan","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":79.99}},
+    {"id":"albania","name":"Albania","region":false,"prices":{"1":1.99,"5":5.99,"10":11.99,"20":22.99}},
+    {"id":"algeria","name":"Algeria","region":false,"prices":{"1":1.99,"5":7.99,"10":15.99,"20":31.99}},
+    {"id":"andorra","name":"Andorra","region":false,"prices":{"1":2.99,"5":14.99,"10":29.99,"20":58.99}},
+    {"id":"angola","name":"Angola","region":false,"prices":{"1":153.99}},
+    {"id":"anguilla","name":"Anguilla","region":false,"prices":{"1":8.99,"5":40.99,"10":81.99,"20":162.99}},
+    {"id":"antigua-and-barbuda","name":"Antigua and Barbuda","region":false,"prices":{"1":8.99,"5":40.99,"10":81.99,"20":162.99}},
+    {"id":"argentina","name":"Argentina","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":78.99}},
+    {"id":"armenia","name":"Armenia","region":false,"prices":{"1":2.99,"5":14.99,"10":28.99,"20":57.99}},
+    {"id":"australia","name":"Australia","region":false,"prices":{"1":2.99,"5":12.99,"10":25.99,"20":50.99}},
+    {"id":"austria","name":"Austria","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
+    {"id":"azerbaijan","name":"Azerbaijan","region":false,"prices":{"1":2.99,"5":12.99,"10":25.99,"20":51.99}},
+    {"id":"bahamas","name":"Bahamas","region":false,"prices":{"1":10.99,"5":53.99,"10":107.99,"20":214.99}},
+    {"id":"bahrain","name":"Bahrain","region":false,"prices":{"1":2.99,"5":13.99,"10":26.99,"20":53.99}},
+    {"id":"bangladesh","name":"Bangladesh","region":false,"prices":{"1":3.99,"5":18.99,"10":36.99,"20":72.99}},
+    {"id":"barbados","name":"Barbados","region":false,"prices":{"1":7.99,"5":37.99,"10":75.99,"20":151.99}},
+    {"id":"belgium","name":"Belgium","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
+    {"id":"belize","name":"Belize","region":false,"prices":{"1":14.99,"5":70.99,"10":141.99,"20":283.99}},
+    {"id":"benin","name":"Benin","region":false,"prices":{"1":15.99,"5":78.99,"10":156.99,"20":312.99}},
+    {"id":"bermuda","name":"Bermuda","region":false,"prices":{"1":24.99,"5":123.99,"10":247.99,"20":494.99}},
+    {"id":"bhutan","name":"Bhutan","region":false,"prices":{"1":230.99}},
+    {"id":"bolivia","name":"Bolivia","region":false,"prices":{"1":8.99,"5":42.99,"10":85.99,"20":171.99}},
+    {"id":"bosnia-and-herzegovina","name":"Bosnia and Herzegovina","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":79.99}},
+    {"id":"brazil","name":"Brazil","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":79.99}},
+    {"id":"british-virgin-islands","name":"British Virgin Islands","region":false,"prices":{"1":7.99,"5":38.99,"10":77.99,"20":154.99}},
+    {"id":"brunei","name":"Brunei","region":false,"prices":{"1":39.99,"5":197.99,"10":394.99}},
+    {"id":"bulgaria","name":"Bulgaria","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":19.99}},
+    {"id":"burkina-faso","name":"Burkina Faso","region":false,"prices":{"1":6.99,"5":30.99,"10":61.99,"20":123.99}},
+    {"id":"cambodia","name":"Cambodia","region":false,"prices":{"1":2.99,"5":10.99,"10":20.99,"20":41.99}},
+    {"id":"cameroon","name":"Cameroon","region":false,"prices":{"1":120.99}},
+    {"id":"canada","name":"Canada","region":false,"prices":{"1":4.99,"5":23.99,"10":47.99,"20":95.99}},
+    {"id":"cape-verde","name":"Cape Verde","region":false,"prices":{"1":13.99,"5":69.99,"10":138.99,"20":276.99}},
+    {"id":"cayman-islands","name":"Cayman Islands","region":false,"prices":{"1":7.99,"5":39.99,"10":79.99,"20":158.99}},
+    {"id":"central-african-rep","name":"Central African Rep","region":false,"prices":{"1":7.99,"5":39.99,"10":78.99,"20":157.99}},
+    {"id":"chad","name":"Chad","region":false,"prices":{"1":6.99,"5":34.99,"10":69.99,"20":138.99}},
+    {"id":"chile","name":"Chile","region":false,"prices":{"1":3.99,"5":16.99,"10":32.99,"20":64.99}},
+    {"id":"china","name":"China","region":false,"prices":{"1":6.99,"5":30.99,"10":60.99,"20":120.99}},
+    {"id":"colombia","name":"Colombia","region":false,"prices":{"1":7.99,"5":35.99,"10":71.99,"20":142.99}},
+    {"id":"congo-dem-rep","name":"Congo Dem. Rep","region":false,"prices":{"1":6.99,"5":34.99,"10":69.99,"20":138.99}},
+    {"id":"congo-republic","name":"Congo Republic","region":false,"prices":{"1":6.99,"5":34.99,"10":69.99,"20":138.99}},
+    {"id":"costa-rica","name":"Costa Rica","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":78.99}},
+    {"id":"croatia","name":"Croatia","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
+    {"id":"curacao","name":"Curacao","region":false,"prices":{"1":23.99,"5":118.99,"10":236.99,"20":472.99}},
+    {"id":"cyprus","name":"Cyprus","region":false,"prices":{"1":1.99,"5":8.99,"10":16.99,"20":32.99}},
+    {"id":"czech-republic","name":"Czech Republic","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
+    {"id":"denmark","name":"Denmark","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
+    {"id":"dominica","name":"Dominica","region":false,"prices":{"1":8.99,"5":41.99,"10":82.99,"20":165.99}},
+    {"id":"dominican-republic","name":"Dominican Republic","region":false,"prices":{"1":7.99,"5":35.99,"10":70.99,"20":140.99}},
+    {"id":"ecuador","name":"Ecuador","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":78.99}},
+    {"id":"egypt","name":"Egypt","region":false,"prices":{"1":3.99,"5":19.99,"10":38.99,"20":76.99}},
+    {"id":"el-salvador","name":"El Salvador","region":false,"prices":{"1":7.99,"5":36.99,"10":73.99,"20":147.99}},
+    {"id":"estonia","name":"Estonia","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":19.99}},
+    {"id":"eswatini","name":"Eswatini","region":false,"prices":{"1":124.99}},
+    {"id":"ethiopia","name":"Ethiopia","region":false,"prices":{"1":4.99,"5":24.99,"10":48.99,"20":96.99}},
+    {"id":"faroe-islands","name":"Faroe Islands","region":false,"prices":{"1":2.99,"5":11.99,"10":22.99,"20":44.99}},
+    {"id":"fiji","name":"Fiji","region":false,"prices":{"1":2.99,"5":12.99,"10":24.99,"20":49.99}},
+    {"id":"finland","name":"Finland","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
+    {"id":"france","name":"France","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":19.99}},
+    {"id":"french-guiana","name":"French Guiana","region":false,"prices":{"1":2.99,"5":14.99,"10":29.99,"20":58.99}},
+    {"id":"french-polynesia","name":"French Polynesia","region":false,"prices":{"1":23.99,"5":119.99,"10":238.99,"20":476.99}},
+    {"id":"gabon","name":"Gabon","region":false,"prices":{"1":6.99,"5":31.99,"10":63.99,"20":127.99}},
+    {"id":"gambia","name":"Gambia","region":false,"prices":{"1":19.99,"5":96.99,"10":193.99,"20":387.99}},
+    {"id":"georgia","name":"Georgia","region":false,"prices":{"1":2.99,"5":10.99,"10":21.99,"20":43.99}},
+    {"id":"germany","name":"Germany","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
+    {"id":"ghana","name":"Ghana","region":false,"prices":{"1":26.99,"5":132.99,"10":264.99}},
+    {"id":"gibraltar","name":"Gibraltar","region":false,"prices":{"1":3.99,"5":17.99,"10":35.99,"20":70.99}},
+    {"id":"greece","name":"Greece","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
+    {"id":"greenland","name":"Greenland","region":false,"prices":{"1":25.99,"5":128.99,"10":257.99}},
+    {"id":"grenada","name":"Grenada","region":false,"prices":{"1":8.99,"5":41.99,"10":82.99,"20":165.99}},
+    {"id":"guadeloupe","name":"Guadeloupe","region":false,"prices":{"1":5.99,"5":26.99,"10":52.99,"20":105.99}},
+    {"id":"guam","name":"Guam","region":false,"prices":{"1":15.99,"5":77.99,"10":154.99,"20":308.99}},
+    {"id":"guatemala","name":"Guatemala","region":false,"prices":{"1":7.99,"5":36.99,"10":72.99,"20":144.99}},
+    {"id":"guinea","name":"Guinea","region":false,"prices":{"1":7.99,"5":39.99,"10":78.99,"20":156.99}},
+    {"id":"guinea-bissau","name":"Guinea-Bissau","region":false,"prices":{"1":7.99,"5":39.99,"10":78.99,"20":156.99}},
+    {"id":"guyana","name":"Guyana","region":false,"prices":{"1":24.99,"5":122.99,"10":245.99,"20":489.99}},
+    {"id":"honduras","name":"Honduras","region":false,"prices":{"1":8.99,"5":43.99,"10":87.99,"20":174.99}},
+    {"id":"hong-kong","name":"Hong Kong","region":false,"prices":{"1":1.99,"5":6.99,"10":12.99,"20":24.99}},
+    {"id":"hungary","name":"Hungary","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":19.99}},
+    {"id":"iceland","name":"Iceland","region":false,"prices":{"1":2.99,"5":10.99,"10":20.99,"20":40.99}},
+    {"id":"india","name":"India","region":false,"prices":{"1":5.99,"5":29.99,"10":59.99,"20":118.99}},
+    {"id":"indonesia","name":"Indonesia","region":false,"prices":{"1":2.99,"5":14.99,"10":28.99,"20":57.99}},
+    {"id":"iraq","name":"Iraq","region":false,"prices":{"1":3.99,"5":15.99,"10":31.99,"20":63.99}},
+    {"id":"ireland","name":"Ireland","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
+    {"id":"israel","name":"Israel","region":false,"prices":{"1":1.99,"5":9.99,"10":18.99,"20":36.99}},
+    {"id":"italy","name":"Italy","region":false,"prices":{"1":0.99,"5":4.99,"10":8.99,"20":17.99}},
+    {"id":"ivory-coast","name":"Ivory Coast","region":false,"prices":{"1":5.99,"5":28.99,"10":57.99,"20":115.99}},
+    {"id":"jamaica","name":"Jamaica","region":false,"prices":{"1":7.99,"5":37.99,"10":75.99,"20":150.99}},
+    {"id":"japan","name":"Japan","region":false,"prices":{"1":4.99,"5":24.99,"10":48.99,"20":97.99}},
+    {"id":"jordan","name":"Jordan","region":false,"prices":{"1":9.99,"5":47.99,"10":94.99,"20":188.99}},
+    {"id":"kazakhstan","name":"Kazakhstan","region":false,"prices":{"1":1.99,"5":6.99,"10":13.99,"20":27.99}},
+    {"id":"kenya","name":"Kenya","region":false,"prices":{"1":5.99,"5":29.99,"10":59.99,"20":119.99}},
+    {"id":"kuwait","name":"Kuwait","region":false,"prices":{"1":3.99,"5":17.99,"10":34.99,"20":69.99}},
+    {"id":"kyrgyzstan","name":"Kyrgyzstan","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
+    {"id":"laos","name":"Laos","region":false,"prices":{"1":3.99,"5":16.99,"10":32.99,"20":64.99}},
+    {"id":"latvia","name":"Latvia","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
+    {"id":"lebanon","name":"Lebanon","region":false,"prices":{"1":38.99,"5":191.99,"10":383.99}},
+    {"id":"lesotho","name":"Lesotho","region":false,"prices":{"1":27.99,"5":139.99,"10":278.99}},
+    {"id":"liberia","name":"Liberia","region":false,"prices":{"1":7.99,"5":38.99,"10":76.99,"20":153.99}},
+    {"id":"liechtenstein","name":"Liechtenstein","region":false,"prices":{"1":0.99,"5":3.99,"10":7.99,"20":15.99}},
+    {"id":"lithuania","name":"Lithuania","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
+    {"id":"luxembourg","name":"Luxembourg","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
+    {"id":"macao-china","name":"Macao China","region":false,"prices":{"1":1.99,"5":6.99,"10":13.99,"20":26.99}},
+    {"id":"macedonia","name":"Macedonia","region":false,"prices":{"1":1.99,"5":8.99,"10":17.99,"20":35.99}},
+    {"id":"madagascar","name":"Madagascar","region":false,"prices":{"1":7.99,"5":38.99,"10":76.99,"20":153.99}},
+    {"id":"malawi","name":"Malawi","region":false,"prices":{"1":6.99,"5":34.99,"10":69.99,"20":138.99}},
+    {"id":"malaysia","name":"Malaysia","region":false,"prices":{"1":1.99,"5":6.99,"10":13.99,"20":27.99}},
+    {"id":"maldives","name":"Maldives","region":false,"prices":{"1":10.99,"5":53.99,"10":106.99,"20":212.99}},
+    {"id":"mali","name":"Mali","region":false,"prices":{"1":6.99,"5":31.99,"10":62.99,"20":125.99}},
+    {"id":"malta","name":"Malta","region":false,"prices":{"1":1.99,"5":5.99,"10":11.99,"20":22.99}},
+    {"id":"mauritania","name":"Mauritania","region":false,"prices":{"1":10.99,"5":53.99,"10":106.99,"20":212.99}},
+    {"id":"mauritius","name":"Mauritius","region":false,"prices":{"1":15.99,"5":76.99,"10":153.99,"20":306.99}},
+    {"id":"mexico","name":"Mexico","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":78.99}},
+    {"id":"moldova","name":"Moldova","region":false,"prices":{"1":2.99,"5":10.99,"10":20.99,"20":41.99}},
+    {"id":"monaco","name":"Monaco","region":false,"prices":{"1":23.99,"5":115.99,"10":231.99,"20":463.99}},
+    {"id":"mongolia","name":"Mongolia","region":false,"prices":{"1":19.99,"5":98.99,"10":197.99,"20":394.99}},
+    {"id":"montenegro","name":"Montenegro","region":false,"prices":{"1":2.99,"5":14.99,"10":28.99,"20":56.99}},
+    {"id":"montserrat","name":"Montserrat","region":false,"prices":{"1":7.99,"5":38.99,"10":77.99,"20":154.99}},
+    {"id":"morocco","name":"Morocco","region":false,"prices":{"1":2.99,"5":13.99,"10":26.99,"20":53.99}},
+    {"id":"mozambique","name":"Mozambique","region":false,"prices":{"1":24.99,"5":124.99,"10":249.99,"20":498.99}},
+    {"id":"nepal","name":"Nepal","region":false,"prices":{"1":5.99,"5":29.99,"10":58.99,"20":117.99}},
+    {"id":"netherlands","name":"Netherlands","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":19.99}},
+    {"id":"netherlands-antilles","name":"Netherlands Antilles","region":false,"prices":{"1":7.99,"5":37.99,"10":75.99,"20":150.99}},
+    {"id":"new-zealand","name":"New Zealand","region":false,"prices":{"1":3.99,"5":16.99,"10":33.99,"20":66.99}},
+    {"id":"nicaragua","name":"Nicaragua","region":false,"prices":{"1":9.99,"5":47.99,"10":94.99,"20":189.99}},
+    {"id":"niger","name":"Niger","region":false,"prices":{"1":6.99,"5":31.99,"10":63.99,"20":127.99}},
+    {"id":"nigeria","name":"Nigeria","region":false,"prices":{"1":6.99,"5":31.99,"10":63.99,"20":126.99}},
+    {"id":"norway","name":"Norway","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
+    {"id":"oman","name":"Oman","region":false,"prices":{"1":2.99,"5":13.99,"10":27.99,"20":54.99}},
+    {"id":"pakistan","name":"Pakistan","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
+    {"id":"palestinian-territory","name":"Palestinian Territory","region":false,"prices":{"1":12.99,"5":61.99,"10":122.99,"20":245.99}},
+    {"id":"panama","name":"Panama","region":false,"prices":{"1":8.99,"5":44.99,"10":88.99,"20":176.99}},
+    {"id":"papua-new-guinea","name":"Papua New Guinea","region":false,"prices":{"1":8.99,"5":44.99,"10":88.99,"20":176.99}},
+    {"id":"paraguay","name":"Paraguay","region":false,"prices":{"1":7.99,"5":35.99,"10":71.99,"20":142.99}},
+    {"id":"peru","name":"Peru","region":false,"prices":{"1":7.99,"5":39.99,"10":78.99,"20":156.99}},
+    {"id":"philippines","name":"Philippines","region":false,"prices":{"1":2.99,"5":10.99,"10":20.99,"20":40.99}},
+    {"id":"poland","name":"Poland","region":false,"prices":{"1":0.99,"5":4.99,"10":8.99,"20":17.99}},
+    {"id":"portugal","name":"Portugal","region":false,"prices":{"1":1.99,"5":5.99,"10":11.99,"20":22.99}},
+    {"id":"puerto-rico","name":"Puerto Rico","region":false,"prices":{"1":7.99,"5":35.99,"10":71.99,"20":142.99}},
+    {"id":"qatar","name":"Qatar","region":false,"prices":{"1":2.99,"5":12.99,"10":24.99,"20":48.99}},
+    {"id":"reunion","name":"Reunion","region":false,"prices":{"1":1.99,"5":8.99,"10":17.99,"20":34.99}},
+    {"id":"romania","name":"Romania","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
+    {"id":"rwanda","name":"Rwanda","region":false,"prices":{"1":6.99,"5":31.99,"10":63.99,"20":127.99}},
+    {"id":"saint-kitts-and-nevis","name":"Saint Kitts and Nevis","region":false,"prices":{"1":7.99,"5":39.99,"10":79.99,"20":158.99}},
+    {"id":"saint-lucia","name":"Saint Lucia","region":false,"prices":{"1":7.99,"5":39.99,"10":79.99,"20":158.99}},
+    {"id":"saint-vincent-and-grenadines","name":"Saint Vincent and Grenadines","region":false,"prices":{"1":7.99,"5":39.99,"10":79.99,"20":158.99}},
+    {"id":"samoa","name":"Samoa","region":false,"prices":{"1":24.99,"5":120.99,"10":240.99,"20":481.99}},
+    {"id":"saudi-arabia","name":"Saudi Arabia","region":false,"prices":{"1":2.99,"5":14.99,"10":28.99,"20":57.99}},
+    {"id":"senegal","name":"Senegal","region":false,"prices":{"1":5.99,"5":29.99,"10":58.99,"20":116.99}},
+    {"id":"serbia","name":"Serbia","region":false,"prices":{"1":2.99,"5":11.99,"10":22.99,"20":45.99}},
+    {"id":"seychelles","name":"Seychelles","region":false,"prices":{"1":245.99}},
+    {"id":"sierra-leone","name":"Sierra Leone","region":false,"prices":{"1":6.99,"5":31.99,"10":62.99,"20":125.99}},
+    {"id":"singapore","name":"Singapore","region":false,"prices":{"1":3.99,"5":18.99,"10":36.99,"20":73.99}},
+    {"id":"slovakia","name":"Slovakia","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":19.99}},
+    {"id":"slovenia","name":"Slovenia","region":false,"prices":{"1":1.99,"5":7.99,"10":14.99,"20":28.99}},
+    {"id":"south-africa","name":"South Africa","region":false,"prices":{"1":7.99,"5":35.99,"10":70.99,"20":141.99}},
+    {"id":"south-korea","name":"South Korea","region":false,"prices":{"1":4.99,"5":21.99,"10":43.99,"20":86.99}},
+    {"id":"south-sudan","name":"South Sudan","region":false,"prices":{"1":167.99}},
+    {"id":"spain","name":"Spain","region":false,"prices":{"1":0.99,"5":4.99,"10":8.99,"20":17.99}},
+    {"id":"sri-lanka","name":"Sri Lanka","region":false,"prices":{"1":4.99,"5":20.99,"10":40.99,"20":80.99}},
+    {"id":"sudan","name":"Sudan","region":false,"prices":{"1":18.99,"5":93.99,"10":187.99,"20":374.99}},
+    {"id":"suriname","name":"Suriname","region":false,"prices":{"1":24.99,"5":122.99,"10":245.99,"20":489.99}},
+    {"id":"sweden","name":"Sweden","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
+    {"id":"switzerland","name":"Switzerland","region":false,"prices":{"1":1.99,"5":6.99,"10":13.99,"20":27.99}},
+    {"id":"taiwan","name":"Taiwan","region":false,"prices":{"1":2.99,"5":12.99,"10":25.99,"20":50.99}},
+    {"id":"tajikistan","name":"Tajikistan","region":false,"prices":{"1":2.99,"5":13.99,"10":27.99,"20":55.99}},
+    {"id":"tanzania","name":"Tanzania","region":false,"prices":{"1":18.99,"5":90.99,"10":181.99,"20":362.99}},
+    {"id":"thailand","name":"Thailand","region":false,"prices":{"1":2.99,"5":13.99,"10":27.99,"20":55.99}},
+    {"id":"tonga","name":"Tonga","region":false,"prices":{"1":109.99}},
+    {"id":"trinidad-and-tobago","name":"Trinidad and Tobago","region":false,"prices":{"1":24.99,"5":122.99,"10":245.99,"20":489.99}},
+    {"id":"tunisia","name":"Tunisia","region":false,"prices":{"1":3.99,"5":15.99,"10":30.99,"20":61.99}},
+    {"id":"turkey","name":"Turkey","region":false,"prices":{"1":1.99,"5":7.99,"10":14.99,"20":29.99}},
+    {"id":"turks-and-caicos-islands","name":"Turks and Caicos Islands","region":false,"prices":{"1":7.99,"5":39.99,"10":79.99,"20":158.99}},
+    {"id":"uganda","name":"Uganda","region":false,"prices":{"1":6.99,"5":32.99,"10":64.99,"20":129.99}},
+    {"id":"ukraine","name":"Ukraine","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":19.99}},
+    {"id":"united-arab-emirates","name":"United Arab Emirates","region":false,"prices":{"1":2.99,"5":14.99,"10":29.99,"20":58.99}},
+    {"id":"united-kingdom","name":"United Kingdom","region":false,"prices":{"1":2.99,"5":10.99,"10":20.99,"20":41.99}},
+    {"id":"united-states","name":"United States","region":false,"prices":{"1":3.99,"5":18.99,"10":37.99,"20":75.99}},
+    {"id":"uruguay","name":"Uruguay","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":78.99}},
+    {"id":"uzbekistan","name":"Uzbekistan","region":false,"prices":{"1":2.99,"5":14.99,"10":28.99,"20":57.99}},
+    {"id":"vanuatu","name":"Vanuatu","region":false,"prices":{"1":96.99,"5":481.99}},
+    {"id":"venezuela","name":"Venezuela","region":false,"prices":{"1":11.99,"5":56.99,"10":112.99,"20":224.99}},
+    {"id":"vietnam","name":"Vietnam","region":false,"prices":{"1":1.99,"5":6.99,"10":12.99,"20":24.99}},
+    {"id":"zambia","name":"Zambia","region":false,"prices":{"1":6.99,"5":31.99,"10":63.99,"20":126.99}},
+    {"id":"zimbabwe","name":"Zimbabwe","region":false,"prices":{"1":190.99}}
+]};
+/* UK plans: Hibs Connect retail prices (GBP / month): Mascot 10GB £10, Hibs Connect 30GB £15, The 1875 100GB £20, Hibs Unlimited £24. */
+const UK = { currency:"GBP", plans:[
+  { id:"uk-10",  label:"10GB",      price:10, note:"Unlimited calls & texts, 10GB 5G data, EU roaming" },
+  { id:"uk-30",  label:"30GB",      price:15, note:"Unlimited calls & texts, 30GB 5G data, EU roaming", best:true },
+  { id:"uk-100", label:"100GB",     price:20, note:"Unlimited calls & texts, 100GB 5G data, EU roaming" },
+  { id:"uk-unl", label:"Unlimited", price:24, note:"Unlimited calls & texts, unlimited 5G data, EU roaming" }
+]};
+
+
+const $ = s => document.querySelector(s);
+let tab = "travel";
+const money = (v,c) => { try{ return new Intl.NumberFormat(c==="USD"?"en-US":"en-GB",{style:"currency",currency:c,minimumFractionDigits:v%1?2:0}).format(v);}catch(e){return c+" "+v;} };
+const selected = n => { const e=document.querySelector('input[name="'+n+'"]:checked'); return e?e.value:null; };
+
+function renderPlans(){
+  const box=$("#plans"); box.innerHTML="";
+  if(tab==="travel"){
+    const d=TRAVEL.destinations.find(x=>x.id===$("#dest").value);
+    const sizes=Object.keys(d.prices).map(Number).sort((a,b)=>a-b);
+    const pick=sizes.includes(5)?5:sizes[0];
+    sizes.forEach(gb=>{
+      const p=d.prices[gb];
+      box.insertAdjacentHTML("beforeend",`<label class="opt"><input type="radio" name="plan" value="${d.id}-${gb}gb-${TRAVEL.days}d" data-price="${p}" data-cur="USD" data-label="${gb}GB for ${TRAVEL.days} days" ${gb===pick?"checked":""}><span><b>${gb}GB</b><small>${TRAVEL.days} days</small><span class="price">${money(p,"USD")}</span></span></label>`);
+    });
+  } else {
+    UK.plans.forEach((p,i)=>box.insertAdjacentHTML("beforeend",`<label class="opt"><input type="radio" name="plan" value="${p.id}" data-price="${p.price}" data-cur="${UK.currency}" data-label="${p.label}" ${p.best?"checked":""}><span><b>${p.label}</b><small>${p.best?"Best seller":"per month"}</small><span class="price">${money(p.price,UK.currency)}</span></span></label>`));
+  }
+  updateSummary();
+}
+
+function updateSummary(){
+  const el=document.querySelector('input[name="plan"]:checked'), list=$("#sumList"); list.innerHTML="";
+  if(!el){ $("#sumTitle").textContent="Choose a plan"; $("#sumPrice").textContent="–"; return; }
+  const price=Number(el.dataset.price), add=t=>list.insertAdjacentHTML("beforeend","<li>"+t+"</li>");
+  if(tab==="travel"){
+    $("#sumTitle").textContent=$("#dest").selectedOptions[0].textContent+" eSIM";
+    $("#sumPrice").textContent=money(price,"USD");
+    add(el.dataset.label); add("QR code by email in minutes"); add("Starts when you first connect abroad");
+    $("#payBtn").textContent="Pay with card";
+  } else {
+    const p=UK.plans.find(x=>x.id===el.value);
+    $("#sumTitle").textContent="UK "+p.label+" plan";
+    $("#sumPrice").textContent=money(price,UK.currency)+"/mo";
+    add(p.note); add(selected("simType")==="physical"?"Physical SIM, posted free":"eSIM by email"); add("No contract, cancel any month"); add("Keep your number with a PAC code");
+    $("#payBtn").textContent="Subscribe with card";
+  }
+}
+
+function setTab(n){
+  tab=n;
+  document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.tab===n)));
+  $("#shopPanel").setAttribute("aria-labelledby","tab-"+n);
+  $("#destField").hidden=n!=="travel"; $("#simField").hidden=n!=="uk";
+  $("#msg").textContent=""; $("#msg").className="form-msg";
+  renderPlans();
+}
+
+async function checkout(){
+  const msg=$("#msg"); msg.className="form-msg";
+  const el=document.querySelector('input[name="plan"]:checked'), email=$("#email").value.trim();
+  if(!el){ msg.textContent="Choose a plan to continue."; msg.className="form-msg err"; return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ msg.textContent="Enter the email address where we should send your eSIM."; msg.className="form-msg err"; $("#email").focus(); return; }
+  const btn=$("#payBtn"), old=btn.textContent; btn.disabled=true; btn.textContent="Opening secure checkout…";
+  try{
+    const r=await fetch(CONFIG.checkoutEndpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({kind:tab,sku:el.value,email,simType:tab==="uk"?selected("simType"):"esim"})});
+    const data=await r.json().catch(()=>({}));
+    if(!r.ok||!data.url) throw new Error(data.error||"Checkout isn't available right now.");
+    location.href=data.url;
+  }catch(e){
+    msg.textContent=(e&&e.message&&!/fetch|network|load/i.test(e.message))?e.message:"Checkout isn't connected on this page yet. Email ra@acquatelecom.com to order.";
+    msg.className="form-msg err"; btn.disabled=false; btn.textContent=old;
+  }
+}
+
+(()=>{ const sel=$("#dest"); const grp=(label,list)=>`<optgroup label="${label}">`+list.map(d=>`<option value="${d.id}">${d.name}</option>`).join("")+"</optgroup>";
+  sel.innerHTML=grp("Regions",TRAVEL.destinations.filter(d=>d.region))+grp("Countries",TRAVEL.destinations.filter(d=>!d.region)); })();
+$("#dest").addEventListener("change",renderPlans);
+document.addEventListener("change",e=>{ if(e.target.name==="plan"||e.target.name==="simType") updateSummary(); });
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.tab)));
+$("#payBtn").addEventListener("click",checkout);
+$("#previewNote").hidden=!CONFIG.preview;
+if(new URLSearchParams(location.search).get("order")==="success"){ $("#msg").textContent="Payment received. Your eSIM is on its way to your inbox."; location.hash="shop"; }
+
+const header=$("#top"), onScroll=()=>header.classList.toggle("solid",scrollY>40); addEventListener("scroll",onScroll,{passive:true}); onScroll();
+const menuBtn=$("#menuBtn"), nav=$("#nav");
+menuBtn.addEventListener("click",()=>{ const o=nav.classList.toggle("open"); menuBtn.setAttribute("aria-expanded",String(o)); header.classList.add("solid"); });
+nav.addEventListener("click",e=>{ if(e.target.tagName==="A"){ nav.classList.remove("open"); menuBtn.setAttribute("aria-expanded","false"); }});
+setTab("travel");
+</script>
+</body>
+</html>
