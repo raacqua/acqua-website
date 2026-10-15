@@ -213,6 +213,8 @@ select:focus,input:focus{border-color:var(--cyan);outline:none}
 .form-msg{font-size:14px;margin-top:12px;min-height:1.2em}
 .form-msg.err{color:#FFC9B0}
 .form-msg.ok{color:#9FF3F0}
+.order-banner{margin:0 0 20px;padding:16px 20px;border-radius:14px;background:rgba(0,201,207,.12);border:1px solid rgba(0,201,207,.4);color:var(--cyan-pale);font-weight:600}
+.order-banner.cancel{background:rgba(232,123,42,.12);border-color:rgba(232,123,42,.4);color:#FFD9BF}
 .fine{font-size:13px;color:var(--muted);margin-top:14px}
 .summary .fine{color:var(--cyan-pale);opacity:.8}
 
@@ -497,6 +499,7 @@ footer p{margin:0}
         <p class="lede">Buy a travel eSIM for your next trip, or a UK plan with no contract. Pay by card and get your eSIM by email in minutes.</p>
       </div>
     </div>
+    <div class="order-banner" id="orderBanner" hidden role="status"></div>
     <p class="preview-note" id="previewNote" hidden>Preview: checkout is not yet connected to live payments.</p>
 
     <div class="tabs" role="tablist" aria-label="Product type">
@@ -651,8 +654,8 @@ document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>setT
 $("#payBtn").addEventListener("click",checkout);
 
 const orderState=new URLSearchParams(location.search).get("order");
-if(orderState==="success"){ $("#msg").textContent="Payment received. Your eSIM is on its way to your inbox — check spam if it hasn't arrived in 10 minutes."; $("#msg").className="form-msg ok"; location.hash="shop"; }
-if(orderState==="cancelled"){ $("#msg").textContent="Checkout cancelled — nothing was charged."; location.hash="shop"; }
+if(orderState==="success"){ const b=$("#orderBanner"); b.textContent="✅ Payment received — thank you. Your eSIM and receipt are on their way to your inbox (check spam if nothing arrives within 10 minutes)."; b.hidden=false; setTimeout(()=>b.scrollIntoView({behavior:"smooth",block:"center"}),300); }
+if(orderState==="cancelled"){ const b=$("#orderBanner"); b.textContent="Checkout cancelled — nothing was charged."; b.className="order-banner cancel"; b.hidden=false; setTimeout(()=>b.scrollIntoView({behavior:"smooth",block:"center"}),300); }
 
 const header=$("#top"), onScroll=()=>header.classList.toggle("solid",scrollY>40); addEventListener("scroll",onScroll,{passive:true}); onScroll();
 const menuBtn=$("#menuBtn"), nav=$("#nav");

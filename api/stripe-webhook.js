@@ -10,29 +10,25 @@ import { config as app } from "../lib/env.js";
 import { issueTravelEsim } from "../lib/bridge.js";
 import { sendEsimEmail, sendPendingEmail, sendInternalEmail } from "../lib/mail.js";
 
-// Vercel: keep the raw body so the Stripe signature can be verified
-export const config = { api: { bodyParser: false } };
-
-export default async function handler(req, res) {
-  if (req.method !== "POST") return res.status(405).end();
-  const stripe = new Stripe(app.stripe.secretKey, { apiVersion: "2025-08-27.basil" });
-
+// Web-standard handler (Request → Response): Vercel hands us the untouched
+// body, which is what Stripe signed. The Node (req,res) style pre-parses it.
+export async function POST(request) {
+  const stripe = new Stripe(app.stripe.secretKey);
   let event;
   try {
-    const raw = await readRaw(req);
-    event = stripe.webhooks.constructEvent(raw, req.headers["stripe-signature"], app.stripe.webhookSecret);
+    const raw = await request.text();
+    event = stripe.webhooks.constructEvent(raw, request.headers.get("stripe-signature"), app.stripe.webhookSecret);
   } catch (e) {
     console.error("webhook signature failed", e.message);
-    return res.status(400).send(`Webhook error: ${e.message}`);
+    return new Response(`Webhook error: ${e.message}`, { status: 400 });
   }
 
   if (event.type !== "checkout.session.completed" && event.type !== "checkout.session.async_payment_succeeded") {
-    return res.status(200).json({ received: true, ignored: event.type });
+    return Response.json({ received: true, ignored: event.type });
   }
 
-  const session = event.data.object;
-  const result = await fulfilSession(stripe, session);
-  return res.status(200).json({ received: true, ...result });
+  const result = await fulfilSession(stripe, event.data.object);
+  return Response.json({ received: true, ...result });
 }
 
 /** Fulfil one Checkout Session. Exported for tests; `stripe` is any object with the SDK's shape. */
@@ -98,12 +94,3 @@ async function setMeta(stripe, target, metadata) {
 }
 
 async function safe(fn) { try { return await fn(); } catch (e) { console.error("non-fatal", e.message); } }
-
-function readRaw(req) {
-  return new Promise((resolve, reject) => {
-    const chunks = [];
-    req.on("data", (c) => chunks.push(Buffer.isBuffer(c) ? c : Buffer.from(c)));
-    req.on("end", () => resolve(Buffer.concat(chunks)));
-    req.on("error", reject);
-  });
-}

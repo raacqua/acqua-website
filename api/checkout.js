@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   if (!item) return res.status(400).json({ error: "That plan isn't available. Please pick another." });
   if (!EMAIL_RE.test(email || "")) return res.status(400).json({ error: "Enter a valid email address for your eSIM." });
 
-  const stripe = new Stripe(config.stripe.secretKey, { apiVersion: "2025-08-27.basil" });
+  const stripe = new Stripe(config.stripe.secretKey);
   const site = config.siteUrl;
   const metadata = {
     kind: item.kind,
