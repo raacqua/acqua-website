@@ -1,0 +1,5 @@
+{
+  "_readme": "Maps a shop SKU (<destination>-<gb>gb-30d) to the eSIMVault prepaid package template id (listPrepaidPackageTemplate → prepaidpackagetemplateid). Run `node scripts/ocs-templates.mjs` to list your templates. Any SKU not listed here is fulfilled manually: the order is emailed to ORDERS_NOTIFY.",
+  "templates": {
+  }
+}

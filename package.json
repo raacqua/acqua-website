@@ -1,0 +1,17 @@
+{
+  "name": "acqua-website",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "acquatelecom.com — static site plus Vercel functions for Stripe checkout and Bridge eSIM delivery",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "ocs:templates": "node scripts/ocs-templates.mjs",
+    "ocs:accounts": "node scripts/ocs-templates.mjs accounts",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4",
+    "stripe": "^18.5.0"
+  }
+}

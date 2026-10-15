@@ -211,6 +211,7 @@ select:focus,input:focus{border-color:var(--cyan);outline:none}
 .summary .btn{width:100%;padding:18px}
 .form-msg{font-size:14px;margin-top:12px;min-height:1.2em}
 .form-msg.err{color:#FFC9B0}
+.form-msg.ok{color:#9FF3F0}
 .fine{font-size:13px;color:var(--muted);margin-top:14px}
 .summary .fine{color:var(--cyan-pale);opacity:.8}
 
@@ -559,209 +560,14 @@ footer p{margin:0}
 <script>
 /* ================= CONFIG =================
    checkoutEndpoint: server route that creates the Stripe Checkout session
-   (main Acqua Telecom Stripe account, see server/.env).
-   preview: true shows the sample-price notice. Set false at go-live. */
-const CONFIG = { checkoutEndpoint: "/api/checkout", preview: true };
+   (api/checkout.js on Vercel; Stripe keys are Vercel env vars, see README).
+   statusEndpoint: reports whether Stripe is connected; the preview notice
+   is shown until it is. */
+const CONFIG = { checkoutEndpoint: "/api/checkout", statusEndpoint: "/api/status", catalog: "/data/catalog.json" };
 
-/* Travel eSIM retail prices (USD, 30 days), from Bridge rate sheets CHARGE_T02 and CHARGE_T02P15 (SP06):
-   lowest of the two rates per network; destination priced on its dearest mainstream network;
-   retail = cost per GB x GB x 1.16 (EUR->USD) x 1.5, rounded up to .99. Plans above $500 are not sold.
-   Wholesale costs are NOT published here; see pricing/travel-esim-prices.csv. */
-const TRAVEL = { days: 30, destinations: [
-    {"id":"europe","name":"Europe (32 countries)","region":true,"prices":{"1":2.99,"5":10.99,"10":20.99,"20":41.99}},
-    {"id":"afghanistan","name":"Afghanistan","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":79.99}},
-    {"id":"albania","name":"Albania","region":false,"prices":{"1":1.99,"5":5.99,"10":11.99,"20":22.99}},
-    {"id":"algeria","name":"Algeria","region":false,"prices":{"1":1.99,"5":7.99,"10":15.99,"20":31.99}},
-    {"id":"andorra","name":"Andorra","region":false,"prices":{"1":2.99,"5":14.99,"10":29.99,"20":58.99}},
-    {"id":"angola","name":"Angola","region":false,"prices":{"1":153.99}},
-    {"id":"anguilla","name":"Anguilla","region":false,"prices":{"1":8.99,"5":40.99,"10":81.99,"20":162.99}},
-    {"id":"antigua-and-barbuda","name":"Antigua and Barbuda","region":false,"prices":{"1":8.99,"5":40.99,"10":81.99,"20":162.99}},
-    {"id":"argentina","name":"Argentina","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":78.99}},
-    {"id":"armenia","name":"Armenia","region":false,"prices":{"1":2.99,"5":14.99,"10":28.99,"20":57.99}},
-    {"id":"australia","name":"Australia","region":false,"prices":{"1":2.99,"5":12.99,"10":25.99,"20":50.99}},
-    {"id":"austria","name":"Austria","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
-    {"id":"azerbaijan","name":"Azerbaijan","region":false,"prices":{"1":2.99,"5":12.99,"10":25.99,"20":51.99}},
-    {"id":"bahamas","name":"Bahamas","region":false,"prices":{"1":10.99,"5":53.99,"10":107.99,"20":214.99}},
-    {"id":"bahrain","name":"Bahrain","region":false,"prices":{"1":2.99,"5":13.99,"10":26.99,"20":53.99}},
-    {"id":"bangladesh","name":"Bangladesh","region":false,"prices":{"1":3.99,"5":18.99,"10":36.99,"20":72.99}},
-    {"id":"barbados","name":"Barbados","region":false,"prices":{"1":7.99,"5":37.99,"10":75.99,"20":151.99}},
-    {"id":"belgium","name":"Belgium","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
-    {"id":"belize","name":"Belize","region":false,"prices":{"1":14.99,"5":70.99,"10":141.99,"20":283.99}},
-    {"id":"benin","name":"Benin","region":false,"prices":{"1":15.99,"5":78.99,"10":156.99,"20":312.99}},
-    {"id":"bermuda","name":"Bermuda","region":false,"prices":{"1":24.99,"5":123.99,"10":247.99,"20":494.99}},
-    {"id":"bhutan","name":"Bhutan","region":false,"prices":{"1":230.99}},
-    {"id":"bolivia","name":"Bolivia","region":false,"prices":{"1":8.99,"5":42.99,"10":85.99,"20":171.99}},
-    {"id":"bosnia-and-herzegovina","name":"Bosnia and Herzegovina","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":79.99}},
-    {"id":"brazil","name":"Brazil","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":79.99}},
-    {"id":"british-virgin-islands","name":"British Virgin Islands","region":false,"prices":{"1":7.99,"5":38.99,"10":77.99,"20":154.99}},
-    {"id":"brunei","name":"Brunei","region":false,"prices":{"1":39.99,"5":197.99,"10":394.99}},
-    {"id":"bulgaria","name":"Bulgaria","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":19.99}},
-    {"id":"burkina-faso","name":"Burkina Faso","region":false,"prices":{"1":6.99,"5":30.99,"10":61.99,"20":123.99}},
-    {"id":"cambodia","name":"Cambodia","region":false,"prices":{"1":2.99,"5":10.99,"10":20.99,"20":41.99}},
-    {"id":"cameroon","name":"Cameroon","region":false,"prices":{"1":120.99}},
-    {"id":"canada","name":"Canada","region":false,"prices":{"1":4.99,"5":23.99,"10":47.99,"20":95.99}},
-    {"id":"cape-verde","name":"Cape Verde","region":false,"prices":{"1":13.99,"5":69.99,"10":138.99,"20":276.99}},
-    {"id":"cayman-islands","name":"Cayman Islands","region":false,"prices":{"1":7.99,"5":39.99,"10":79.99,"20":158.99}},
-    {"id":"central-african-rep","name":"Central African Rep","region":false,"prices":{"1":7.99,"5":39.99,"10":78.99,"20":157.99}},
-    {"id":"chad","name":"Chad","region":false,"prices":{"1":6.99,"5":34.99,"10":69.99,"20":138.99}},
-    {"id":"chile","name":"Chile","region":false,"prices":{"1":3.99,"5":16.99,"10":32.99,"20":64.99}},
-    {"id":"china","name":"China","region":false,"prices":{"1":6.99,"5":30.99,"10":60.99,"20":120.99}},
-    {"id":"colombia","name":"Colombia","region":false,"prices":{"1":7.99,"5":35.99,"10":71.99,"20":142.99}},
-    {"id":"congo-dem-rep","name":"Congo Dem. Rep","region":false,"prices":{"1":6.99,"5":34.99,"10":69.99,"20":138.99}},
-    {"id":"congo-republic","name":"Congo Republic","region":false,"prices":{"1":6.99,"5":34.99,"10":69.99,"20":138.99}},
-    {"id":"costa-rica","name":"Costa Rica","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":78.99}},
-    {"id":"croatia","name":"Croatia","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
-    {"id":"curacao","name":"Curacao","region":false,"prices":{"1":23.99,"5":118.99,"10":236.99,"20":472.99}},
-    {"id":"cyprus","name":"Cyprus","region":false,"prices":{"1":1.99,"5":8.99,"10":16.99,"20":32.99}},
-    {"id":"czech-republic","name":"Czech Republic","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
-    {"id":"denmark","name":"Denmark","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
-    {"id":"dominica","name":"Dominica","region":false,"prices":{"1":8.99,"5":41.99,"10":82.99,"20":165.99}},
-    {"id":"dominican-republic","name":"Dominican Republic","region":false,"prices":{"1":7.99,"5":35.99,"10":70.99,"20":140.99}},
-    {"id":"ecuador","name":"Ecuador","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":78.99}},
-    {"id":"egypt","name":"Egypt","region":false,"prices":{"1":3.99,"5":19.99,"10":38.99,"20":76.99}},
-    {"id":"el-salvador","name":"El Salvador","region":false,"prices":{"1":7.99,"5":36.99,"10":73.99,"20":147.99}},
-    {"id":"estonia","name":"Estonia","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":19.99}},
-    {"id":"eswatini","name":"Eswatini","region":false,"prices":{"1":124.99}},
-    {"id":"ethiopia","name":"Ethiopia","region":false,"prices":{"1":4.99,"5":24.99,"10":48.99,"20":96.99}},
-    {"id":"faroe-islands","name":"Faroe Islands","region":false,"prices":{"1":2.99,"5":11.99,"10":22.99,"20":44.99}},
-    {"id":"fiji","name":"Fiji","region":false,"prices":{"1":2.99,"5":12.99,"10":24.99,"20":49.99}},
-    {"id":"finland","name":"Finland","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
-    {"id":"france","name":"France","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":19.99}},
-    {"id":"french-guiana","name":"French Guiana","region":false,"prices":{"1":2.99,"5":14.99,"10":29.99,"20":58.99}},
-    {"id":"french-polynesia","name":"French Polynesia","region":false,"prices":{"1":23.99,"5":119.99,"10":238.99,"20":476.99}},
-    {"id":"gabon","name":"Gabon","region":false,"prices":{"1":6.99,"5":31.99,"10":63.99,"20":127.99}},
-    {"id":"gambia","name":"Gambia","region":false,"prices":{"1":19.99,"5":96.99,"10":193.99,"20":387.99}},
-    {"id":"georgia","name":"Georgia","region":false,"prices":{"1":2.99,"5":10.99,"10":21.99,"20":43.99}},
-    {"id":"germany","name":"Germany","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
-    {"id":"ghana","name":"Ghana","region":false,"prices":{"1":26.99,"5":132.99,"10":264.99}},
-    {"id":"gibraltar","name":"Gibraltar","region":false,"prices":{"1":3.99,"5":17.99,"10":35.99,"20":70.99}},
-    {"id":"greece","name":"Greece","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
-    {"id":"greenland","name":"Greenland","region":false,"prices":{"1":25.99,"5":128.99,"10":257.99}},
-    {"id":"grenada","name":"Grenada","region":false,"prices":{"1":8.99,"5":41.99,"10":82.99,"20":165.99}},
-    {"id":"guadeloupe","name":"Guadeloupe","region":false,"prices":{"1":5.99,"5":26.99,"10":52.99,"20":105.99}},
-    {"id":"guam","name":"Guam","region":false,"prices":{"1":15.99,"5":77.99,"10":154.99,"20":308.99}},
-    {"id":"guatemala","name":"Guatemala","region":false,"prices":{"1":7.99,"5":36.99,"10":72.99,"20":144.99}},
-    {"id":"guinea","name":"Guinea","region":false,"prices":{"1":7.99,"5":39.99,"10":78.99,"20":156.99}},
-    {"id":"guinea-bissau","name":"Guinea-Bissau","region":false,"prices":{"1":7.99,"5":39.99,"10":78.99,"20":156.99}},
-    {"id":"guyana","name":"Guyana","region":false,"prices":{"1":24.99,"5":122.99,"10":245.99,"20":489.99}},
-    {"id":"honduras","name":"Honduras","region":false,"prices":{"1":8.99,"5":43.99,"10":87.99,"20":174.99}},
-    {"id":"hong-kong","name":"Hong Kong","region":false,"prices":{"1":1.99,"5":6.99,"10":12.99,"20":24.99}},
-    {"id":"hungary","name":"Hungary","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":19.99}},
-    {"id":"iceland","name":"Iceland","region":false,"prices":{"1":2.99,"5":10.99,"10":20.99,"20":40.99}},
-    {"id":"india","name":"India","region":false,"prices":{"1":5.99,"5":29.99,"10":59.99,"20":118.99}},
-    {"id":"indonesia","name":"Indonesia","region":false,"prices":{"1":2.99,"5":14.99,"10":28.99,"20":57.99}},
-    {"id":"iraq","name":"Iraq","region":false,"prices":{"1":3.99,"5":15.99,"10":31.99,"20":63.99}},
-    {"id":"ireland","name":"Ireland","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
-    {"id":"israel","name":"Israel","region":false,"prices":{"1":1.99,"5":9.99,"10":18.99,"20":36.99}},
-    {"id":"italy","name":"Italy","region":false,"prices":{"1":0.99,"5":4.99,"10":8.99,"20":17.99}},
-    {"id":"ivory-coast","name":"Ivory Coast","region":false,"prices":{"1":5.99,"5":28.99,"10":57.99,"20":115.99}},
-    {"id":"jamaica","name":"Jamaica","region":false,"prices":{"1":7.99,"5":37.99,"10":75.99,"20":150.99}},
-    {"id":"japan","name":"Japan","region":false,"prices":{"1":4.99,"5":24.99,"10":48.99,"20":97.99}},
-    {"id":"jordan","name":"Jordan","region":false,"prices":{"1":9.99,"5":47.99,"10":94.99,"20":188.99}},
-    {"id":"kazakhstan","name":"Kazakhstan","region":false,"prices":{"1":1.99,"5":6.99,"10":13.99,"20":27.99}},
-    {"id":"kenya","name":"Kenya","region":false,"prices":{"1":5.99,"5":29.99,"10":59.99,"20":119.99}},
-    {"id":"kuwait","name":"Kuwait","region":false,"prices":{"1":3.99,"5":17.99,"10":34.99,"20":69.99}},
-    {"id":"kyrgyzstan","name":"Kyrgyzstan","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
-    {"id":"laos","name":"Laos","region":false,"prices":{"1":3.99,"5":16.99,"10":32.99,"20":64.99}},
-    {"id":"latvia","name":"Latvia","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
-    {"id":"lebanon","name":"Lebanon","region":false,"prices":{"1":38.99,"5":191.99,"10":383.99}},
-    {"id":"lesotho","name":"Lesotho","region":false,"prices":{"1":27.99,"5":139.99,"10":278.99}},
-    {"id":"liberia","name":"Liberia","region":false,"prices":{"1":7.99,"5":38.99,"10":76.99,"20":153.99}},
-    {"id":"liechtenstein","name":"Liechtenstein","region":false,"prices":{"1":0.99,"5":3.99,"10":7.99,"20":15.99}},
-    {"id":"lithuania","name":"Lithuania","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
-    {"id":"luxembourg","name":"Luxembourg","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
-    {"id":"macao-china","name":"Macao China","region":false,"prices":{"1":1.99,"5":6.99,"10":13.99,"20":26.99}},
-    {"id":"macedonia","name":"Macedonia","region":false,"prices":{"1":1.99,"5":8.99,"10":17.99,"20":35.99}},
-    {"id":"madagascar","name":"Madagascar","region":false,"prices":{"1":7.99,"5":38.99,"10":76.99,"20":153.99}},
-    {"id":"malawi","name":"Malawi","region":false,"prices":{"1":6.99,"5":34.99,"10":69.99,"20":138.99}},
-    {"id":"malaysia","name":"Malaysia","region":false,"prices":{"1":1.99,"5":6.99,"10":13.99,"20":27.99}},
-    {"id":"maldives","name":"Maldives","region":false,"prices":{"1":10.99,"5":53.99,"10":106.99,"20":212.99}},
-    {"id":"mali","name":"Mali","region":false,"prices":{"1":6.99,"5":31.99,"10":62.99,"20":125.99}},
-    {"id":"malta","name":"Malta","region":false,"prices":{"1":1.99,"5":5.99,"10":11.99,"20":22.99}},
-    {"id":"mauritania","name":"Mauritania","region":false,"prices":{"1":10.99,"5":53.99,"10":106.99,"20":212.99}},
-    {"id":"mauritius","name":"Mauritius","region":false,"prices":{"1":15.99,"5":76.99,"10":153.99,"20":306.99}},
-    {"id":"mexico","name":"Mexico","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":78.99}},
-    {"id":"moldova","name":"Moldova","region":false,"prices":{"1":2.99,"5":10.99,"10":20.99,"20":41.99}},
-    {"id":"monaco","name":"Monaco","region":false,"prices":{"1":23.99,"5":115.99,"10":231.99,"20":463.99}},
-    {"id":"mongolia","name":"Mongolia","region":false,"prices":{"1":19.99,"5":98.99,"10":197.99,"20":394.99}},
-    {"id":"montenegro","name":"Montenegro","region":false,"prices":{"1":2.99,"5":14.99,"10":28.99,"20":56.99}},
-    {"id":"montserrat","name":"Montserrat","region":false,"prices":{"1":7.99,"5":38.99,"10":77.99,"20":154.99}},
-    {"id":"morocco","name":"Morocco","region":false,"prices":{"1":2.99,"5":13.99,"10":26.99,"20":53.99}},
-    {"id":"mozambique","name":"Mozambique","region":false,"prices":{"1":24.99,"5":124.99,"10":249.99,"20":498.99}},
-    {"id":"nepal","name":"Nepal","region":false,"prices":{"1":5.99,"5":29.99,"10":58.99,"20":117.99}},
-    {"id":"netherlands","name":"Netherlands","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":19.99}},
-    {"id":"netherlands-antilles","name":"Netherlands Antilles","region":false,"prices":{"1":7.99,"5":37.99,"10":75.99,"20":150.99}},
-    {"id":"new-zealand","name":"New Zealand","region":false,"prices":{"1":3.99,"5":16.99,"10":33.99,"20":66.99}},
-    {"id":"nicaragua","name":"Nicaragua","region":false,"prices":{"1":9.99,"5":47.99,"10":94.99,"20":189.99}},
-    {"id":"niger","name":"Niger","region":false,"prices":{"1":6.99,"5":31.99,"10":63.99,"20":127.99}},
-    {"id":"nigeria","name":"Nigeria","region":false,"prices":{"1":6.99,"5":31.99,"10":63.99,"20":126.99}},
-    {"id":"norway","name":"Norway","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":18.99}},
-    {"id":"oman","name":"Oman","region":false,"prices":{"1":2.99,"5":13.99,"10":27.99,"20":54.99}},
-    {"id":"pakistan","name":"Pakistan","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
-    {"id":"palestinian-territory","name":"Palestinian Territory","region":false,"prices":{"1":12.99,"5":61.99,"10":122.99,"20":245.99}},
-    {"id":"panama","name":"Panama","region":false,"prices":{"1":8.99,"5":44.99,"10":88.99,"20":176.99}},
-    {"id":"papua-new-guinea","name":"Papua New Guinea","region":false,"prices":{"1":8.99,"5":44.99,"10":88.99,"20":176.99}},
-    {"id":"paraguay","name":"Paraguay","region":false,"prices":{"1":7.99,"5":35.99,"10":71.99,"20":142.99}},
-    {"id":"peru","name":"Peru","region":false,"prices":{"1":7.99,"5":39.99,"10":78.99,"20":156.99}},
-    {"id":"philippines","name":"Philippines","region":false,"prices":{"1":2.99,"5":10.99,"10":20.99,"20":40.99}},
-    {"id":"poland","name":"Poland","region":false,"prices":{"1":0.99,"5":4.99,"10":8.99,"20":17.99}},
-    {"id":"portugal","name":"Portugal","region":false,"prices":{"1":1.99,"5":5.99,"10":11.99,"20":22.99}},
-    {"id":"puerto-rico","name":"Puerto Rico","region":false,"prices":{"1":7.99,"5":35.99,"10":71.99,"20":142.99}},
-    {"id":"qatar","name":"Qatar","region":false,"prices":{"1":2.99,"5":12.99,"10":24.99,"20":48.99}},
-    {"id":"reunion","name":"Reunion","region":false,"prices":{"1":1.99,"5":8.99,"10":17.99,"20":34.99}},
-    {"id":"romania","name":"Romania","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
-    {"id":"rwanda","name":"Rwanda","region":false,"prices":{"1":6.99,"5":31.99,"10":63.99,"20":127.99}},
-    {"id":"saint-kitts-and-nevis","name":"Saint Kitts and Nevis","region":false,"prices":{"1":7.99,"5":39.99,"10":79.99,"20":158.99}},
-    {"id":"saint-lucia","name":"Saint Lucia","region":false,"prices":{"1":7.99,"5":39.99,"10":79.99,"20":158.99}},
-    {"id":"saint-vincent-and-grenadines","name":"Saint Vincent and Grenadines","region":false,"prices":{"1":7.99,"5":39.99,"10":79.99,"20":158.99}},
-    {"id":"samoa","name":"Samoa","region":false,"prices":{"1":24.99,"5":120.99,"10":240.99,"20":481.99}},
-    {"id":"saudi-arabia","name":"Saudi Arabia","region":false,"prices":{"1":2.99,"5":14.99,"10":28.99,"20":57.99}},
-    {"id":"senegal","name":"Senegal","region":false,"prices":{"1":5.99,"5":29.99,"10":58.99,"20":116.99}},
-    {"id":"serbia","name":"Serbia","region":false,"prices":{"1":2.99,"5":11.99,"10":22.99,"20":45.99}},
-    {"id":"seychelles","name":"Seychelles","region":false,"prices":{"1":245.99}},
-    {"id":"sierra-leone","name":"Sierra Leone","region":false,"prices":{"1":6.99,"5":31.99,"10":62.99,"20":125.99}},
-    {"id":"singapore","name":"Singapore","region":false,"prices":{"1":3.99,"5":18.99,"10":36.99,"20":73.99}},
-    {"id":"slovakia","name":"Slovakia","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":19.99}},
-    {"id":"slovenia","name":"Slovenia","region":false,"prices":{"1":1.99,"5":7.99,"10":14.99,"20":28.99}},
-    {"id":"south-africa","name":"South Africa","region":false,"prices":{"1":7.99,"5":35.99,"10":70.99,"20":141.99}},
-    {"id":"south-korea","name":"South Korea","region":false,"prices":{"1":4.99,"5":21.99,"10":43.99,"20":86.99}},
-    {"id":"south-sudan","name":"South Sudan","region":false,"prices":{"1":167.99}},
-    {"id":"spain","name":"Spain","region":false,"prices":{"1":0.99,"5":4.99,"10":8.99,"20":17.99}},
-    {"id":"sri-lanka","name":"Sri Lanka","region":false,"prices":{"1":4.99,"5":20.99,"10":40.99,"20":80.99}},
-    {"id":"sudan","name":"Sudan","region":false,"prices":{"1":18.99,"5":93.99,"10":187.99,"20":374.99}},
-    {"id":"suriname","name":"Suriname","region":false,"prices":{"1":24.99,"5":122.99,"10":245.99,"20":489.99}},
-    {"id":"sweden","name":"Sweden","region":false,"prices":{"1":1.99,"5":5.99,"10":10.99,"20":20.99}},
-    {"id":"switzerland","name":"Switzerland","region":false,"prices":{"1":1.99,"5":6.99,"10":13.99,"20":27.99}},
-    {"id":"taiwan","name":"Taiwan","region":false,"prices":{"1":2.99,"5":12.99,"10":25.99,"20":50.99}},
-    {"id":"tajikistan","name":"Tajikistan","region":false,"prices":{"1":2.99,"5":13.99,"10":27.99,"20":55.99}},
-    {"id":"tanzania","name":"Tanzania","region":false,"prices":{"1":18.99,"5":90.99,"10":181.99,"20":362.99}},
-    {"id":"thailand","name":"Thailand","region":false,"prices":{"1":2.99,"5":13.99,"10":27.99,"20":55.99}},
-    {"id":"tonga","name":"Tonga","region":false,"prices":{"1":109.99}},
-    {"id":"trinidad-and-tobago","name":"Trinidad and Tobago","region":false,"prices":{"1":24.99,"5":122.99,"10":245.99,"20":489.99}},
-    {"id":"tunisia","name":"Tunisia","region":false,"prices":{"1":3.99,"5":15.99,"10":30.99,"20":61.99}},
-    {"id":"turkey","name":"Turkey","region":false,"prices":{"1":1.99,"5":7.99,"10":14.99,"20":29.99}},
-    {"id":"turks-and-caicos-islands","name":"Turks and Caicos Islands","region":false,"prices":{"1":7.99,"5":39.99,"10":79.99,"20":158.99}},
-    {"id":"uganda","name":"Uganda","region":false,"prices":{"1":6.99,"5":32.99,"10":64.99,"20":129.99}},
-    {"id":"ukraine","name":"Ukraine","region":false,"prices":{"1":0.99,"5":4.99,"10":9.99,"20":19.99}},
-    {"id":"united-arab-emirates","name":"United Arab Emirates","region":false,"prices":{"1":2.99,"5":14.99,"10":29.99,"20":58.99}},
-    {"id":"united-kingdom","name":"United Kingdom","region":false,"prices":{"1":2.99,"5":10.99,"10":20.99,"20":41.99}},
-    {"id":"united-states","name":"United States","region":false,"prices":{"1":3.99,"5":18.99,"10":37.99,"20":75.99}},
-    {"id":"uruguay","name":"Uruguay","region":false,"prices":{"1":3.99,"5":19.99,"10":39.99,"20":78.99}},
-    {"id":"uzbekistan","name":"Uzbekistan","region":false,"prices":{"1":2.99,"5":14.99,"10":28.99,"20":57.99}},
-    {"id":"vanuatu","name":"Vanuatu","region":false,"prices":{"1":96.99,"5":481.99}},
-    {"id":"venezuela","name":"Venezuela","region":false,"prices":{"1":11.99,"5":56.99,"10":112.99,"20":224.99}},
-    {"id":"vietnam","name":"Vietnam","region":false,"prices":{"1":1.99,"5":6.99,"10":12.99,"20":24.99}},
-    {"id":"zambia","name":"Zambia","region":false,"prices":{"1":6.99,"5":31.99,"10":63.99,"20":126.99}},
-    {"id":"zimbabwe","name":"Zimbabwe","region":false,"prices":{"1":190.99}}
-]};
-/* UK plans: Hibs Connect retail prices (GBP / month): Mascot 10GB £10, Hibs Connect 30GB £15, The 1875 100GB £20, Hibs Unlimited £24. */
-const UK = { currency:"GBP", plans:[
-  { id:"uk-10",  label:"10GB",      price:10, note:"Unlimited calls & texts, 10GB 5G data, EU roaming" },
-  { id:"uk-30",  label:"30GB",      price:15, note:"Unlimited calls & texts, 30GB 5G data, EU roaming", best:true },
-  { id:"uk-100", label:"100GB",     price:20, note:"Unlimited calls & texts, 100GB 5G data, EU roaming" },
-  { id:"uk-unl", label:"Unlimited", price:24, note:"Unlimited calls & texts, unlimited 5G data, EU roaming" }
-]};
-
+/* Prices live in data/catalog.json — the server charges from the same file,
+   so edit prices there, never here. */
+let TRAVEL = { days: 30, destinations: [] }, UK = { currency: "GBP", plans: [] };
 
 const $ = s => document.querySelector(s);
 let tab = "travel";
@@ -828,20 +634,30 @@ async function checkout(){
   }
 }
 
-(()=>{ const sel=$("#dest"); const grp=(label,list)=>`<optgroup label="${label}">`+list.map(d=>`<option value="${d.id}">${d.name}</option>`).join("")+"</optgroup>";
-  sel.innerHTML=grp("Regions",TRAVEL.destinations.filter(d=>d.region))+grp("Countries",TRAVEL.destinations.filter(d=>!d.region)); })();
 $("#dest").addEventListener("change",renderPlans);
 document.addEventListener("change",e=>{ if(e.target.name==="plan"||e.target.name==="simType") updateSummary(); });
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.tab)));
 $("#payBtn").addEventListener("click",checkout);
-$("#previewNote").hidden=!CONFIG.preview;
-if(new URLSearchParams(location.search).get("order")==="success"){ $("#msg").textContent="Payment received. Your eSIM is on its way to your inbox."; location.hash="shop"; }
+
+const orderState=new URLSearchParams(location.search).get("order");
+if(orderState==="success"){ $("#msg").textContent="Payment received. Your eSIM is on its way to your inbox — check spam if it hasn't arrived in 10 minutes."; $("#msg").className="form-msg ok"; location.hash="shop"; }
+if(orderState==="cancelled"){ $("#msg").textContent="Checkout cancelled — nothing was charged."; location.hash="shop"; }
 
 const header=$("#top"), onScroll=()=>header.classList.toggle("solid",scrollY>40); addEventListener("scroll",onScroll,{passive:true}); onScroll();
 const menuBtn=$("#menuBtn"), nav=$("#nav");
 menuBtn.addEventListener("click",()=>{ const o=nav.classList.toggle("open"); menuBtn.setAttribute("aria-expanded",String(o)); header.classList.add("solid"); });
 nav.addEventListener("click",e=>{ if(e.target.tagName==="A"){ nav.classList.remove("open"); menuBtn.setAttribute("aria-expanded","false"); }});
-setTab("travel");
+async function bootShop(){
+  try{
+    const c=await (await fetch(CONFIG.catalog)).json();
+    TRAVEL=c.travel; UK=c.uk;
+  }catch(e){ console.error("catalog",e); }
+  const sel=$("#dest"); const grp=(label,list)=>`<optgroup label="${label}">`+list.map(d=>`<option value="${d.id}">${d.name}</option>`).join("")+"</optgroup>";
+  sel.innerHTML=grp("Regions",TRAVEL.destinations.filter(d=>d.region))+grp("Countries",TRAVEL.destinations.filter(d=>!d.region));
+  setTab("travel");
+  try{ const st=await (await fetch(CONFIG.statusEndpoint)).json(); $("#previewNote").hidden=!!st.live; }catch(e){ $("#previewNote").hidden=false; }
+}
+bootShop();
 </script>
 </body>
 </html>
